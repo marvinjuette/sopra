@@ -2,7 +2,7 @@ package entity
 
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import utils.TestUtils.Companion.getListOfCards
+import utils.TestUtils.getListOfCards
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

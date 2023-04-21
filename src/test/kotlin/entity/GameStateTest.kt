@@ -3,8 +3,8 @@ package entity
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import utils.TestUtils.Companion.getListOfCards
-import utils.TestUtils.Companion.getPlayerList
+import utils.TestUtils.getListOfCards
+import utils.TestUtils.getPlayerList
 
 /**
  * This class contains tests to test the functionality of the [GameState] data class
