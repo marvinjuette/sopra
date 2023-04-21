@@ -9,8 +9,8 @@ class GameStateTest {
     private lateinit var gameState: GameState
     private val passCounter = 0
     private val currentPlayerIndex = 0
-    private val stackCards = getRandomStackCards()
-    private val centralCards = getRandomCentralCards()
+    private val stackCards = getListOfCards(17)
+    private val centralCards = getListOfCards(3)
     private val playerList = getPlayerList()
 
     @BeforeEach
@@ -58,7 +58,7 @@ class GameStateTest {
 
     @Test
     fun setCentralCards() {
-        val newCentralCards = getRandomCentralCards()
+        val newCentralCards = getListOfCards(3)
 
         gameState.centralCards = newCentralCards
 
@@ -68,37 +68,5 @@ class GameStateTest {
     @Test
     fun getPlayers() {
         assertEquals(playerList, gameState.players)
-    }
-
-    private fun getRandomStackCards(): List<Card> {
-        val list = mutableListOf<Card>()
-
-        for (i in 1..17) {
-            val cardSuit = CardSuit.values().random()
-            val cardValue = CardValue.values().random()
-            list.add(Card(cardSuit, cardValue))
-        }
-
-        return list
-    }
-
-    private fun getRandomCentralCards(): List<Card> {
-        val list = mutableListOf<Card>()
-
-        for (i in 1..3) {
-            val cardSuit = CardSuit.values().random()
-            val cardValue = CardValue.values().random()
-            list.add(Card(cardSuit, cardValue))
-        }
-
-        return list
-    }
-
-    private fun getPlayerList(): List<Player> {
-        val player1 = Player("Player 1", false, emptyList())
-        val player2 = Player("Player 2", false, emptyList())
-        val player3 = Player("Player 3", false, emptyList())
-
-        return listOf(player1, player2, player3)
     }
 }
