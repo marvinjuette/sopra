@@ -5,6 +5,9 @@ import entity.CardSuit
 import entity.CardValue
 import entity.Player
 
+/**
+ * This is utility class containing multiple functions to make it easier to write some tests
+ */
 class TestUtils {
     companion object {
 

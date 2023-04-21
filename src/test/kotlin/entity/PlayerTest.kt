@@ -2,11 +2,20 @@ package entity
 
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import utils.TestUtils.Companion.getListOfCards
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
+/**
+ * This class contains tests to ensure the proper functionality of the player data class
+ */
 class PlayerTest {
 
+    /**
+     * This method tests multiple string inputs for the player name
+     *
+     * Null is not an option here because of kotlin's null safety
+     */
     @ParameterizedTest(name = "player.name should be equal to {0}")
     @ValueSource(strings = ["Player 1", "Player 2", "Player 3", "Player 4", "", " "])
     fun getName(name: String) {
@@ -14,6 +23,9 @@ class PlayerTest {
         assertEquals(name, player.name)
     }
 
+    /**
+     * This method tests all boolean inputs for player hasKnocked
+     */
     @ParameterizedTest(name = "player.hasKnocked should be equal to {0}")
     @ValueSource(booleans = [true, false])
     fun getHasKnocked(hasKnocked: Boolean) {
@@ -21,6 +33,9 @@ class PlayerTest {
         assertEquals(hasKnocked, player.hasKnocked)
     }
 
+    /**
+     * This method tests whether the returned handCards by the player object is equal to it's initial handCards
+     */
     @Test
     fun getHandCards() {
         val handCards = getListOfCards(3)
@@ -29,6 +44,9 @@ class PlayerTest {
         assertEquals(handCards, player.handCards)
     }
 
+    /**
+     * This method tests whether the reassignment of the handCards works properly
+     */
     @Test
     fun setHandCards() {
         val initialHandCards = getListOfCards(3)
@@ -38,18 +56,5 @@ class PlayerTest {
         player.handCards = newHandCards
 
         assertEquals(newHandCards, player.handCards)
-    }
-
-    private fun getSampleHandCards(): List<Card> {
-        val handCards = mutableListOf<Card>()
-
-        for (i in 1..3) {
-            val cardSuit = CardSuit.values().random()
-            val cardValue = CardValue.values().random()
-            val card = Card(cardSuit, cardValue)
-            handCards.add(card)
-        }
-
-        return handCards
     }
 }
