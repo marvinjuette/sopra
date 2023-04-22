@@ -40,6 +40,6 @@ object TestUtils {
      * This method is a helper function to make it easier to get a random card
      */
     private fun getRandomCard(): Card {
-        return Card(CardSuit.values().random(), CardValue.values().random())
+        return Card(CardSuit.values().random(), CardValue.shortDeck().random())
     }
 }
