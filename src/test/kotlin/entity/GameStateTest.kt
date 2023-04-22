@@ -1,5 +1,6 @@
 package entity
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -13,7 +14,7 @@ class GameStateTest {
 
     private lateinit var gameState: GameState
     private val passCounter = 0
-    private val currentPlayerIndex = 0
+    private val currentPlayer = 0
     private val stackCards = getListOfCards(17)
     private val centralCards = getListOfCards(3)
     private val playerList = getPlayerList()
@@ -23,22 +24,22 @@ class GameStateTest {
      */
     @BeforeEach
     fun init() {
-        gameState = GameState(passCounter, currentPlayerIndex, stackCards, centralCards, playerList)
+        gameState = GameState(passCounter, currentPlayer, stackCards, centralCards, playerList)
     }
 
     /**
-     * Tests whether the returned passCounter by the gameState is equal to the initial passCounter
+     * Tests if the returned passCounter by the gameState is equal to the initial passCounter
      */
     @Test
-    fun getPassCounter() {
+    fun `test if returned passCounter by gameState is equal to initial one`() {
         assertEquals(passCounter, gameState.passCounter)
     }
 
     /**
-     * Tests whether the reassignment of the passCounter works properly
+     * Tests if the reassignment of the passCounter works properly
      */
     @Test
-    fun setPassCounter() {
+    fun `test if passCounter is re-assignable`() {
         val newPassCounter = 2
 
         gameState.passCounter = newPassCounter
@@ -47,46 +48,58 @@ class GameStateTest {
     }
 
     /**
-     * Tests whether the returned currentPlayerIndex by the gameState is equal to the initial currentPlayerIndex
+     * Tests if the returned currentPlayerIndex by the gameState is equal to the initial currentPlayerIndex
      */
     @Test
-    fun getCurrentPlayerIndex() {
-        assertEquals(currentPlayerIndex, gameState.currentPlayerIndex)
+    fun `test if returned currentPlayer is equal to initial one`() {
+        assertEquals(currentPlayer, gameState.currentPlayer)
     }
 
     /**
-     * Tests whether the reassignment of the currentPlayerIndex works properly
+     * Tests if the reassignment of the currentPlayerIndex works properly
      */
     @Test
-    fun setCurrentPlayerIndex() {
+    fun `test if currentPlayer is re-assignable`() {
         val newCurrentPlayerIndex = 3
 
-        gameState.currentPlayerIndex = newCurrentPlayerIndex
+        gameState.currentPlayer = newCurrentPlayerIndex
 
-        assertEquals(newCurrentPlayerIndex, gameState.currentPlayerIndex)
+        assertEquals(newCurrentPlayerIndex, gameState.currentPlayer)
     }
 
     /**
-     * Tests whether the returned stackCards by the gameState is equal to the initial stackCards
+     * Tests if the returned stackCards by the gameState is equal to the initial stackCards
      */
     @Test
-    fun getStackCards() {
+    fun `test if returned stackCards are equal to initial ones`() {
         assertEquals(stackCards, gameState.stackCards)
     }
 
     /**
-     * Tests whether the returned centralCards by the gameState is equal to the initial centralCards
+     * Tests if single cards in the stack are removable
      */
     @Test
-    fun getCentralCards() {
+    fun `test if cards in stack cards are removable`() {
+        val initialStackSize = gameState.stackCards.size
+
+        gameState.stackCards.removeFirst()
+
+        assertThat(gameState.stackCards.size).isLessThan(initialStackSize)
+    }
+
+    /**
+     * Tests if the returned centralCards by the gameState is equal to the initial centralCards
+     */
+    @Test
+    fun `test if returned centralCards are equal to initial ones`() {
         assertEquals(centralCards, gameState.centralCards)
     }
 
     /**
-     * Tests whether the reassignment of the centralCards works properly
+     * Tests if the reassignment of the centralCards works properly
      */
     @Test
-    fun setCentralCards() {
+    fun `test if centralCards are re-assignable`() {
         val newCentralCards = getListOfCards(3)
 
         gameState.centralCards = newCentralCards
@@ -95,10 +108,34 @@ class GameStateTest {
     }
 
     /**
-     * Tests whether the returned playerList by the gameState is equal to the initial playerList
+     * Tests if the centralCards are exchangeable
      */
     @Test
-    fun getPlayers() {
+    fun `test if single centralCards can be exchanged`() {
+        val centralCard1 = Card(CardSuit.HEARTS, CardValue.SEVEN)
+        val centralCard2 = Card(CardSuit.HEARTS, CardValue.EIGHT)
+        val centralCard3 = Card(CardSuit.HEARTS, CardValue.NINE)
+        val centralCards = mutableListOf(centralCard1, centralCard2, centralCard3)
+        gameState.centralCards = centralCards
+
+        val newCentralCard1 = Card(CardSuit.SPADES, CardValue.ACE)
+        val newCentralCard2 = Card(CardSuit.SPADES, CardValue.KING)
+        val newCentralCard3 = Card(CardSuit.SPADES, CardValue.QUEEN)
+
+        gameState.centralCards[0] = newCentralCard1
+        gameState.centralCards[1] = newCentralCard2
+        gameState.centralCards[2] = newCentralCard3
+
+        assertThat(gameState.centralCards).containsOnly(newCentralCard1, newCentralCard2, newCentralCard3)
+        assertThat(gameState.centralCards).doesNotContainAnyElementsOf(listOf(centralCard1, centralCard2, centralCard3))
+
+    }
+
+    /**
+     * Tests if the returned playerList by the gameState is equal to the initial playerList
+     */
+    @Test
+    fun `test if returned playerList is equal to initial one`() {
         assertEquals(playerList, gameState.players)
     }
 }

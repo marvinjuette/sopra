@@ -11,30 +11,35 @@ import entity.Player
 object TestUtils {
 
     /**
-* This method is a helper function to make it easier to get a list of random cards
-*
-* @param amountOfCards Int value representing the amount of random cards to create
-*/
-    fun getListOfCards(amountOfCards: Int): List<Card> {
+    * This method is a helper function to make it easier to get a list of random cards
+    *
+    * @param amountOfCards Int value representing the amount of random cards to create
+    */
+    fun getListOfCards(amountOfCards: Int): MutableList<Card> {
         val list = mutableListOf<Card>()
 
         repeat(amountOfCards) {
-            val cardSuit = CardSuit.values().random()
-            val cardValue = CardValue.values().random()
-            list.add(Card(cardSuit, cardValue))
+            list.add(getRandomCard())
         }
 
         return list
     }
 
     /**
-* This method is a helper function to make it easier to get a list of 3 players
-*/
+    * This method is a helper function to make it easier to get a list of 3 players
+    */
     fun getPlayerList(): List<Player> {
-        val player1 = Player("Player 1", false, emptyList())
-        val player2 = Player("Player 2", false, emptyList())
-        val player3 = Player("Player 3", false, emptyList())
+        val player1 = Player("Player 1", false, getListOfCards(3))
+        val player2 = Player("Player 2", false, getListOfCards(3))
+        val player3 = Player("Player 3", false, getListOfCards(3))
 
         return listOf(player1, player2, player3)
+    }
+
+    /**
+     * This method is a helper function to make it easier to get a random card
+     */
+    private fun getRandomCard(): Card {
+        return Card(CardSuit.values().random(), CardValue.values().random())
     }
 }
