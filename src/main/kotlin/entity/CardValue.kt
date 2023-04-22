@@ -11,53 +11,53 @@ import java.util.*
  *
  */
 enum class CardValue {
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-    NINE,
-    TEN,
-    JACK,
-    QUEEN,
-    KING,
-    ACE,
-    ;
+	TWO,
+	THREE,
+	FOUR,
+	FIVE,
+	SIX,
+	SEVEN,
+	EIGHT,
+	NINE,
+	TEN,
+	JACK,
+	QUEEN,
+	KING,
+	ACE,
+	;
 
-    /**
-     * provide a single character to represent this value.
-     * Returns one of: 2/3/4/5/6/7/8/9/10/J/Q/K/A
-     */
-    override fun toString() =
-        when(this) {
-            TWO -> "2"
-            THREE -> "3"
-            FOUR -> "4"
-            FIVE -> "5"
-            SIX -> "6"
-            SEVEN -> "7"
-            EIGHT -> "8"
-            NINE -> "9"
-            TEN -> "10"
-            JACK -> "J"
-            QUEEN -> "Q"
-            KING -> "K"
-            ACE -> "A"
-        }
+	/**
+	 * provide a single character to represent this value.
+	 * Returns one of: 2/3/4/5/6/7/8/9/10/J/Q/K/A
+	 */
+	override fun toString() =
+		when(this) {
+			TWO -> "2"
+			THREE -> "3"
+			FOUR -> "4"
+			FIVE -> "5"
+			SIX -> "6"
+			SEVEN -> "7"
+			EIGHT -> "8"
+			NINE -> "9"
+			TEN -> "10"
+			JACK -> "J"
+			QUEEN -> "Q"
+			KING -> "K"
+			ACE -> "A"
+		}
 
 
-    companion object {
+	companion object {
 
-        /**
-         * A set of values for a reduced set of 4x8=32 cards (starting with the 7)
-         */
-        fun shortDeck(): Set<CardValue> {
-            return EnumSet.of(ACE, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING)
-        }
+		/**
+		 * A set of values for a reduced set of 4x8=32 cards (starting with the 7)
+		 */
+		fun shortDeck(): Set<CardValue> {
+			return EnumSet.of(ACE, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING)
+		}
 
-    }
+	}
 
 
 

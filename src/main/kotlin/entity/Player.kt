@@ -8,7 +8,7 @@ package entity
  * @property handCards List of (three) [Card]s the player is currently holding on his hands
  */
 data class Player(
-    val name: String,
-    val hasKnocked: Boolean,
-    var handCards: MutableList<Card>,
+	val name: String,
+	val hasKnocked: Boolean,
+	var handCards: MutableList<Card>,
 )

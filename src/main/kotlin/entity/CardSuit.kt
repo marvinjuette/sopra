@@ -5,9 +5,9 @@ package entity
  * clubs, spades, hearts, or diamonds
  */
 enum class CardSuit {
-    CLUBS,
-    SPADES,
-    HEARTS,
-    DIAMONDS,
-    ;
+	CLUBS,
+	SPADES,
+	HEARTS,
+	DIAMONDS,
+	;
 }

@@ -10,9 +10,9 @@ package entity
  * @property players List of [Player]s in the current game
  */
 data class GameState(
-    var passCounter: Int,
-    var currentPlayer: Int,
-    val stackCards: MutableList<Card>,
-    var centralCards: MutableList<Card>,
-    val players: List<Player>,
+	var passCounter: Int,
+	var currentPlayer: Int,
+	val stackCards: MutableList<Card>,
+	var centralCards: MutableList<Card>,
+	val players: List<Player>,
 )
