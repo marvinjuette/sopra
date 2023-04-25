@@ -9,6 +9,6 @@ package entity
  */
 data class Player(
 	val name: String,
-	val hasKnocked: Boolean,
+	var hasKnocked: Boolean,
 	var handCards: MutableList<Card>,
 )

@@ -35,6 +35,19 @@ class PlayerTest {
 	}
 
 	/**
+	 * This method tests if player property hasKnocked is re-assignable
+	 */
+	@ParameterizedTest
+	@ValueSource(booleans = [true, false])
+	fun setHasKnocked(initialHasKnocked: Boolean) {
+		val player = Player("Player 1", initialHasKnocked, getListOfCards(3))
+
+		player.hasKnocked = !initialHasKnocked
+
+		assertThat(player.hasKnocked).isNotEqualTo(initialHasKnocked)
+	}
+
+	/**
 	 * This method tests if the returned handCards by the player object is equal to it's initial handCards
 	 */
 	@Test
