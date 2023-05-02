@@ -12,7 +12,7 @@ package entity
 data class GameState(
 	var passCounter: Int,
 	var currentPlayer: Int,
-	val stackCards: MutableList<Card>,
+	var stackCards: MutableList<Card>,
 	var centralCards: MutableList<Card>,
 	val players: List<Player>,
 )
