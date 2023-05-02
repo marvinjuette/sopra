@@ -58,6 +58,7 @@ class GameServiceTest {
 
 		gameService.startNewGame()
 
+		verify(playerActionService, times(1)).resetPassCount()
 		verify(gameState, times(1)).currentPlayer = 0
 		verify(gameState, times(1)).stackCards = anyList()
 		verify(gameState, times(1)).centralCards = anyList()
