@@ -9,6 +9,7 @@ class SopraApplication : BoardGameApplication(WINDOW_TITLE), Refreshable {
 	private val rootService = RootService()
 	private val startScene = StartScene(rootService)
 	private val gameScene = GameScene(rootService)
+	private val playerSwitchMenuScene = PlayerSwitchMenuScene(rootService)
 	private val endScene = EndScene(rootService)
 
    init {
@@ -22,6 +23,14 @@ class SopraApplication : BoardGameApplication(WINDOW_TITLE), Refreshable {
 	override fun refreshAfterGameStart() {
 		this.hideMenuScene()
 		this.showGameScene(gameScene)
+	}
+
+	override fun refreshAfterPlayerChange() {
+		this.showMenuScene(playerSwitchMenuScene)
+	}
+
+	override fun refreshAfterPlayerRevealedCards() {
+		this.hideMenuScene()
 	}
 
 	override fun refreshAfterGameEnd() {

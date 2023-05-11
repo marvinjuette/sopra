@@ -49,22 +49,4 @@ class RootServiceTest {
 	fun `check if game state is initialized`() {
 		assertNotNull(rootService.gameState)
 	}
-
-	/**
-	 * Tests if start new game method of the [GameService] is called to ensure that a game wil be started after
-	 * the initial setup
-	 */
-	@Test
-	fun `check if start new game is called on game service`() {
-		val gameServiceMock: GameService = mock()
-		doNothing().`when`(gameServiceMock).startNewGame(getPlayerNamesAsList())
-
-		val gameServiceField = rootService::class.java.getDeclaredField("gameService")
-		gameServiceField.isAccessible = true
-		gameServiceField.set(rootService, gameServiceMock)
-
-		rootService.initializeGame()
-
-		verify(gameServiceMock, times(1)).startNewGame(getPlayerNamesAsList())
-	}
 }

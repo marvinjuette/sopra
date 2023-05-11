@@ -54,9 +54,8 @@ class GameServiceTest {
 		doNothing().`when`(playerActionService).resetPassCount()
 		`when`(gameState.stackCards).thenReturn(getListOfCards(32))
 		`when`(gameState.players).thenReturn(listOf(playerMock))
-		`when`(playerMock.hasKnocked).thenReturn(true)
 
-		gameService.startNewGame(getPlayerNamesAsList())
+		gameService.startNewGame(listOf("Player 1"))
 
 		verify(playerActionService, times(1)).resetPassCount()
 		verify(gameState, times(1)).currentPlayer = 0

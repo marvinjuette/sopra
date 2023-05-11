@@ -1,8 +1,6 @@
 package view
 
 import entity.Card
-import entity.CardSuit
-import entity.CardValue
 import service.CardImageLoader
 import service.RootService
 import tools.aqua.bgw.components.container.CardStack
@@ -37,7 +35,7 @@ import utils.Constants.PASS_BUTTON_TEXT
 import utils.Constants.TEXT_FIELD_HEIGHT
 import utils.Constants.TEXT_FIELD_WIDTH
 
-class GameScene(rootService: RootService): BoardGameScene(
+class GameScene(val rootService: RootService): BoardGameScene(
 	width = DEFAULT_WINDOW_WIDTH,
 	height= DEFAULT_WINDOW_HEIGHT,
 	background = WINDOW_BACKGROUND_COLOR
@@ -199,27 +197,29 @@ class GameScene(rootService: RootService): BoardGameScene(
 		back = ImageVisual(cardImageLoader.backImage)
 	)
 
-	init {
-		centralCardsLinearLayout.addAll(
-			getCardImage(Card(CardSuit.CLUBS, CardValue.ACE)),
-			getCardImage(Card(CardSuit.CLUBS, CardValue.KING)),
-			getCardImage(Card(CardSuit.CLUBS, CardValue.TEN)),
-		)
+	override fun refreshAfterGameStart() {
+		val currentPlayer = rootService.gameState.players[0]
+		playerNameLabel.text = currentPlayer.name
+		passCounterLabel.text = "Pass: ${rootService.gameState.passCounter} / ${rootService.gameState.players.size}"
+
+		centralCardsLinearLayout.forEach { it.removeFromParent() }
+		rootService.gameState.centralCards.forEach { centralCardsLinearLayout.add(getCardImage(it)) }
 		centralCardsLinearLayout.forEach { it.flip() }
 
-		handCardsLinearLayout.addAll(
-			getCardImage(Card(CardSuit.HEARTS, CardValue.ACE)),
-			getCardImage(Card(CardSuit.HEARTS, CardValue.KING)),
-			getCardImage(Card(CardSuit.HEARTS, CardValue.TEN)),
-		)
+		centralStackCardStack.forEach { it.removeFromParent() }
+		rootService.gameState.stackCards.forEach { centralStackCardStack.add(getCardImage(it)) }
+
+		handCardsLinearLayout.forEach { it.removeFromParent() }
+		currentPlayer.handCards.forEach { handCardsLinearLayout.add(getCardImage(it)) }
+
+		rootService.gameService.onAllRefreshables { refreshAfterPlayerChange() }
+	}
+
+	override fun refreshAfterPlayerRevealedCards() {
 		handCardsLinearLayout.forEach { it.flip() }
+	}
 
-		centralStackCardStack.addAll(
-			getCardImage(Card(CardSuit.DIAMONDS, CardValue.ACE)),
-			getCardImage(Card(CardSuit.DIAMONDS, CardValue.KING)),
-			getCardImage(Card(CardSuit.DIAMONDS, CardValue.TEN)),
-		)
-
+	init {
 		infoBackgroundButton.isDisabled = true
 
 		addComponents(

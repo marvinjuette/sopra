@@ -2,32 +2,36 @@ package view
 
 interface Refreshable {
 
-    fun refreshAfterGameStart() {
+	fun refreshAfterGameStart() {
+		return
+	}
 
-    }
+	fun refreshAfterGameEnd() {
+		return
+	}
 
-    fun refreshAfterGameEnd() {
+	fun refreshAfterKnock() {
+		return
+	}
 
-    }
+	fun refreshAfterPass() {
+		return
+	}
 
-    fun refreshAfterKnock()  {
+	fun refreshAfterChangedCard() {
+		return
+	}
 
-    }
+	fun refreshAfterChangedAllCards() {
+		return
+	}
 
-    fun refreshAfterPass() {
+	fun refreshAfterPlayerChange() {
+		return
+	}
 
-    }
-
-    fun refreshAfterChangedCard() {
-
-    }
-
-    fun refreshAfterChangedAllCards() {
-
-    }
-
-    fun refreshAfterPlayerChange() {
-
-    }
+	fun refreshAfterPlayerRevealedCards() {
+		return
+	}
 
 }

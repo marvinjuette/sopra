@@ -65,9 +65,9 @@ open class GameService (
 			return 30.5
 		}
 
-		val suitScore = intArrayOf(0, 0, 0, 0)
-		handCards.forEach { suitScore[it.suit.ordinal] += it.value.score }
-
-		return (suitScore.maxOrNull() ?: 0).toDouble()
+		return CardSuit.values()
+			.map { suit -> handCards.filter { it.suit == suit }.sumOf { it.value.score } }
+			.maxOf { it }
+			.toDouble()
 	}
 }
