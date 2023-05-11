@@ -4,6 +4,7 @@ import tools.aqua.bgw.visual.ColorVisual
 
 object Colors {
     // DEFAULT COLORS
+    val WHITE = ColorVisual(255, 255, 255)
     val RED = ColorVisual(216, 114, 128)
     val CYAN = ColorVisual(91, 188, 163)
 

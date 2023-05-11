@@ -16,6 +16,7 @@ import utils.Constants.DEFAULT_MARGIN
 import utils.Constants.DEFAULT_SPACING
 import utils.Constants.DEFAULT_WINDOW_HEIGHT
 import utils.Constants.DEFAULT_WINDOW_WIDTH
+import utils.Constants.MENU_BUTTON_FONT
 import utils.Constants.QUIT_BUTTON_TEXT
 import utils.Constants.START_BUTTON_TEXT
 import utils.Constants.TEXT_FIELD_HEIGHT
@@ -88,7 +89,7 @@ class StartScene(rootService: RootService) : MenuScene(DEFAULT_WINDOW_WIDTH, DEF
         width = buttonWidth,
         height = TEXT_FIELD_HEIGHT,
         text = START_BUTTON_TEXT,
-        font = Font(size = 20, fontWeight = Font.FontWeight.BOLD, color = Color.WHITE),
+        font = MENU_BUTTON_FONT,
         visual = CYAN
     ).apply { onMouseClicked = {
         if (playerName1.text.isBlank() || playerName2.text.isBlank()) {
@@ -129,7 +130,7 @@ class StartScene(rootService: RootService) : MenuScene(DEFAULT_WINDOW_WIDTH, DEF
         width = buttonWidth,
         height = TEXT_FIELD_HEIGHT,
         text = QUIT_BUTTON_TEXT,
-        font = Font(size = 20, fontWeight = Font.FontWeight.BOLD, color = Color.WHITE),
+        font = MENU_BUTTON_FONT,
         visual = RED
     ).apply { onMouseClicked = {
          exitProcess(0)
