@@ -16,17 +16,6 @@ class RootService {
     val gameService = GameService(this)
     val gameState = GameState(0, 0, mutableListOf(), mutableListOf(), emptyList())
 
-    /**
-     * This method takes care of the initialization of the first game (e.g. preparing the ui; creating the player
-     * objects after the names where entered by the users.
-     */
-    fun initializeGame() {
-        // TODO ask for playerNames in UI
-        // TODO: other ui stuff
-
-        gameService.startNewGame()
-    }
-
     fun addRefreshable(newRefreshable: Refreshable) {
         gameService.addRefreshable(newRefreshable)
         playerActionService.addRefreshable(newRefreshable)

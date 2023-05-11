@@ -56,7 +56,7 @@ class GameServiceTest {
 		`when`(gameState.players).thenReturn(listOf(playerMock))
 		`when`(playerMock.hasKnocked).thenReturn(true)
 
-		gameService.startNewGame()
+		gameService.startNewGame(getPlayerNamesAsList())
 
 		verify(playerActionService, times(1)).resetPassCount()
 		verify(gameState, times(1)).currentPlayer = 0

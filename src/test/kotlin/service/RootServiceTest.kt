@@ -57,7 +57,7 @@ class RootServiceTest {
 	@Test
 	fun `check if start new game is called on game service`() {
 		val gameServiceMock: GameService = mock()
-		doNothing().`when`(gameServiceMock).startNewGame()
+		doNothing().`when`(gameServiceMock).startNewGame(getPlayerNamesAsList())
 
 		val gameServiceField = rootService::class.java.getDeclaredField("gameService")
 		gameServiceField.isAccessible = true
@@ -65,6 +65,6 @@ class RootServiceTest {
 
 		rootService.initializeGame()
 
-		verify(gameServiceMock, times(1)).startNewGame()
+		verify(gameServiceMock, times(1)).startNewGame(getPlayerNamesAsList())
 	}
 }

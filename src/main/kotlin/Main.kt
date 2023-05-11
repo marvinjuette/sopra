@@ -1,6 +1,6 @@
-import view.GameScene
+import view.SopraApplication
 
 fun main() {
-    GameScene().show()
+    SopraApplication().show()
     println("Application ended. Goodbye")
 }

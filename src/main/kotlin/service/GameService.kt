@@ -21,9 +21,10 @@ open class GameService (
 	/**
 	 * Prepares the [GameState] data class for the new game (resetting all values, giving each player cards, etc.)
 	 */
-	fun startNewGame() {
+	fun startNewGame(playerNames: List<String>) {
 		val game = rootService.gameState
 
+		rootService.gameState.players = playerNames.map { Player(it, false, mutableListOf()) }
 		rootService.playerActionService.resetPassCount()
 
 		game.currentPlayer = 0
@@ -31,16 +32,7 @@ open class GameService (
 		game.players.forEach { it.handCards = game.stackCards.removeMultiple(3).toMutableList() }
 		game.centralCards = game.stackCards.removeMultiple(3).toMutableList()
 
-		while (gameRunning) {
-			val currentPlayer = game.players[game.currentPlayer]
-
-			if (currentPlayer.hasKnocked) {
-				gameRunning = false
-				finishGame()
-			}
-
-			// TODO: ui stuff
-		}
+		onAllRefreshables { refreshAfterGameStart() }
 	}
 
 	/**
@@ -52,7 +44,7 @@ open class GameService (
 		val scoreMap = mutableMapOf<Player, Double>()
 		rootService.gameState.players.forEach { scoreMap[it] = calculateScore(it.handCards) }
 
-		// TODO: display when ui is available
+		onAllRefreshables { refreshAfterGameEnd() }
 	}
 
 	/**

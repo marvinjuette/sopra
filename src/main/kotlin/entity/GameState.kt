@@ -14,5 +14,5 @@ data class GameState(
 	var currentPlayer: Int,
 	var stackCards: MutableList<Card>,
 	var centralCards: MutableList<Card>,
-	val players: List<Player>,
+	var players: List<Player>,
 )
