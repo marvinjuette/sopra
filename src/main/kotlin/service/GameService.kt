@@ -5,7 +5,7 @@ import entity.Player
 import entity.CardSuit
 import entity.CardValue
 import entity.GameState
-import utils.removeMultiple
+import extensions.removeMultiple
 
 /**
  * This class is responsible for single games (e.g. preparing the game, keeping track of each player's turn)

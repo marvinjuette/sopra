@@ -8,8 +8,9 @@ import utils.Colors.WHITE
 import utils.Colors.WINDOW_BACKGROUND_COLOR
 import utils.Constants.DEFAULT_WINDOW_HEIGHT
 import utils.Constants.DEFAULT_WINDOW_WIDTH
+import utils.Constants.PRESS_KEY_TO_SHOW_CARDS_TEXT
 
-class PlayerSwitchMenuScene(rootService: RootService): MenuScene(
+class PlayerChangedScene(private val rootService: RootService): MenuScene(
 	width = DEFAULT_WINDOW_WIDTH,
 	height = DEFAULT_WINDOW_HEIGHT,
 	background = WINDOW_BACKGROUND_COLOR
@@ -21,8 +22,15 @@ class PlayerSwitchMenuScene(rootService: RootService): MenuScene(
 		width = width / 2,
 		height = height / 2,
 		font = Font(size = 24, color = WHITE.color, fontWeight = Font.FontWeight.BOLD),
-		text = "Press any key to reveal your cards"
 	)
+
+	override fun refreshAfterGameStart() {
+		label.text = generateRevealHintText()
+	}
+
+	override fun refreshAfterPlayerChange() {
+		label.text = generateRevealHintText()
+	}
 
 	init {
 		label.apply { onKeyTyped = {
@@ -34,5 +42,10 @@ class PlayerSwitchMenuScene(rootService: RootService): MenuScene(
 		} }
 
 		addComponents(label)
+	}
+
+	private fun generateRevealHintText(): String {
+		val playerName = rootService.gameState.players[rootService.gameState.currentPlayer].name
+		return "${playerName}, $PRESS_KEY_TO_SHOW_CARDS_TEXT"
 	}
 }

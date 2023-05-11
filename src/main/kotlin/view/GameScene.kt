@@ -1,6 +1,7 @@
 package view
 
 import entity.Card
+import extensions.onButtonClicked
 import service.CardImageLoader
 import service.RootService
 import tools.aqua.bgw.components.container.CardStack
@@ -211,16 +212,48 @@ class GameScene(val rootService: RootService): BoardGameScene(
 
 		handCardsLinearLayout.forEach { it.removeFromParent() }
 		currentPlayer.handCards.forEach { handCardsLinearLayout.add(getCardImage(it)) }
+	}
 
-		rootService.gameService.onAllRefreshables { refreshAfterPlayerChange() }
+	override fun refreshAfterPlayerChange() {
+		val player = rootService.gameState.players[rootService.gameState.currentPlayer]
+		playerNameLabel.text = player.name
+
+		handCardsLinearLayout.removeAll { true }
+		player.handCards.forEach { handCardsLinearLayout.add(getCardImage(it)) }
+	}
+
+	override fun refreshAfterPass() {
+		passCounterLabel.text = "Pass: ${rootService.gameState.passCounter} / ${rootService.gameState.players.size}"
+	}
+
+	override fun refreshAfterPassWithCardsExchanged() {
+		centralStackLabel.text = "Central Stack (${rootService.gameState.stackCards.size})"
+		passCounterLabel.text = "Pass: ${rootService.gameState.passCounter} / ${rootService.gameState.players.size}"
+
+		centralCardsLinearLayout.removeAll { true }
+		rootService.gameState.centralCards.forEach { centralCardsLinearLayout.add(getCardImage(it)) }
+		centralCardsLinearLayout.forEach { it.flip() }
 	}
 
 	override fun refreshAfterPlayerRevealedCards() {
 		handCardsLinearLayout.forEach { it.flip() }
+
+		val handCards = rootService.gameState.players[rootService.gameState.currentPlayer].handCards
+		pointsLabel.text = "Points: ${rootService.gameService.calculateScore(handCards)}"
 	}
+
+	// TODO: implement changeAllCards
+	// TODO: implement changeSingleCard
+	// TODO: implement knock
 
 	init {
 		infoBackgroundButton.isDisabled = true
+
+		// TODO: implement way to switch two cards
+		changeCardButton.onButtonClicked { rootService.playerActionService.changeCard(0, 0) }
+		changeAllCardsButton.onButtonClicked { rootService.playerActionService.changeAllCards() }
+		passButton.onButtonClicked { rootService.playerActionService.pass() }
+		knockButton.onButtonClicked { rootService.playerActionService.knock() }
 
 		addComponents(
 			infoBackgroundButton,

@@ -48,7 +48,10 @@ class PlayerActionServiceTest {
 	@Test
 	fun `knock marks player and resets pass counter`() {
 		val player: Player = mock()
-		playerActionService.knock(player)
+
+		`when`(gameState.currentPlayer).thenReturn(0)
+		`when`(gameState.players).thenReturn(listOf(player))
+		playerActionService.knock()
 
 		verify(player, times(1)).hasKnocked = true
 		verify(gameState, times(1)).passCounter = 0
@@ -106,11 +109,13 @@ class PlayerActionServiceTest {
 	fun `change all cards should swap all cards of player with all central cards`() {
 		val handCards = getListOfCards(3)
 		val centralCards = getListOfCards(3)
-
 		val player = Player("Player 1", false, handCards)
+
+		`when`(gameState.currentPlayer).thenReturn(0)
+		`when`(gameState.players).thenReturn(listOf(player))
 		`when`(gameState.centralCards).thenReturn(centralCards)
 
-		playerActionService.changeAllCards(player)
+		playerActionService.changeAllCards()
 
 		assertThat(player.handCards).isEqualTo(centralCards)
 		verify(gameState, times(1)).centralCards = handCards
@@ -127,9 +132,11 @@ class PlayerActionServiceTest {
 		val newCentralCards = centralCards.toMutableList()
 
 		val player = Player("Player 1", false, newHandCards)
+		`when`(gameState.currentPlayer).thenReturn(0)
+		`when`(gameState.players).thenReturn(listOf(player))
 		`when`(gameState.centralCards).thenReturn(newCentralCards)
 
-		playerActionService.changeCard(player, 0, 0)
+		playerActionService.changeCard(0, 0)
 
 		assertThat(newHandCards).containsOnly(centralCards[0], handCards[1], handCards[2])
 		assertThat(newCentralCards).containsOnly(handCards[0], centralCards[1], centralCards[2])

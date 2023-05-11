@@ -2,7 +2,7 @@ package service
 
 import entity.Player
 import entity.GameState
-import utils.removeMultiple
+import extensions.removeMultiple
 
 /**
  * This service is intended to manage the 4 different moves a player can choose from.
@@ -16,8 +16,9 @@ class PlayerActionService(
     /**
      * Resets the pass counter in [GameState] data class and marks the player as one who has knocked.
      */
-    fun knock(player: Player) {
+    fun knock() {
         resetPassCount()
+        val player = getCurrentPlayer()
 
         player.hasKnocked = true
         onAllRefreshables { refreshAfterKnock() }
@@ -37,6 +38,7 @@ class PlayerActionService(
 
         if (game.passCounter != game.players.size) {
             onAllRefreshables { refreshAfterPass() }
+            nextPlayer()
             return
         }
 
@@ -47,15 +49,16 @@ class PlayerActionService(
         game.centralCards = game.stackCards.removeMultiple(3).toMutableList()
         resetPassCount()
 
-        onAllRefreshables { refreshAfterPass() }
+        onAllRefreshables { refreshAfterPassWithCardsExchanged() }
         nextPlayer()
     }
 
     /**
      * Handles the logic for the exchange of all hand cards with the open central ones.
      */
-    fun changeAllCards(player: Player) {
+    fun changeAllCards() {
         resetPassCount()
+        val player = getCurrentPlayer()
 
         val centralCards = rootService.gameState.centralCards
         val handCards = player.handCards
@@ -72,8 +75,9 @@ class PlayerActionService(
      * @param handCardIndex Index of the hand card which is to be exchanged
      * @param centralCardIndex Index of the open central card that is to be taken on hand
      */
-    fun changeCard(player: Player, handCardIndex: Int, centralCardIndex: Int) {
+    fun changeCard(handCardIndex: Int, centralCardIndex: Int) {
         resetPassCount()
+        val player = getCurrentPlayer()
 
         val centralCard = rootService.gameState.centralCards[centralCardIndex]
         val handCard = player.handCards[handCardIndex]
@@ -85,6 +89,8 @@ class PlayerActionService(
         onAllRefreshables { refreshAfterChangedCard() }
         nextPlayer()
     }
+
+    private fun getCurrentPlayer() = rootService.gameState.players[rootService.gameState.currentPlayer]
 
     /**
      * Private helper function to set the passCounter to 0
@@ -98,6 +104,12 @@ class PlayerActionService(
 
         if (rootService.gameState.currentPlayer == rootService.gameState.players.size) {
             rootService.gameState.currentPlayer = 0
+        }
+
+        if (getCurrentPlayer().hasKnocked) {
+            rootService.gameService.finishGame()
+        } else {
+            onAllRefreshables { refreshAfterPlayerChange() }
         }
     }
 }

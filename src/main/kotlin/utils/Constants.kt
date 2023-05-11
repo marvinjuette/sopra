@@ -41,6 +41,9 @@ object Constants {
     const val CARD_LINEAR_LAYOUT_SPACING = 2 * DEFAULT_SPACING
     val ACTION_BUTTON_FONT = Font(size = 24, fontWeight = Font.FontWeight.BOLD)
 
+    // PLAYER CHANGE SCENE
+    const val PRESS_KEY_TO_SHOW_CARDS_TEXT = "press any key to reveal your cards"
+
     // END SCENE
     const val SCORE_TEXT = "Score"
     const val NEW_GAME_BUTTON_TEXT = "New"

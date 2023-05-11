@@ -18,6 +18,10 @@ interface Refreshable {
 		return
 	}
 
+	fun refreshAfterPassWithCardsExchanged() {
+		return
+	}
+
 	fun refreshAfterChangedCard() {
 		return
 	}
