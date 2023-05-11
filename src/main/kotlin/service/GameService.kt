@@ -12,9 +12,9 @@ import utils.removeMultiple
  *
  * @param rootService Reference to [RootService] to access other classes like the game state.
  */
-open class GameService(
+open class GameService (
 	private val rootService: RootService
-) {
+): AbstractRefreshingService() {
 
 	private var gameRunning = true
 

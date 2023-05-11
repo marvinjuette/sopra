@@ -3,6 +3,7 @@ package service
 import entity.Player
 import entity.GameState
 import utils.removeMultiple
+import view.Refreshable
 
 /**
  * This service is intended to manage the 4 different moves a player can choose from.
@@ -11,7 +12,7 @@ import utils.removeMultiple
  */
 class PlayerActionService(
     private val rootService: RootService
-) {
+): AbstractRefreshingService() {
 
     /**
      * Resets the pass counter in [GameState] data class and marks the player as one who has knocked.
@@ -34,6 +35,7 @@ class PlayerActionService(
         game.passCounter++
 
         if (game.passCounter != game.players.size) {
+            onAllRefreshables { refreshAfterPass() }
             return
         }
 
@@ -42,6 +44,9 @@ class PlayerActionService(
         }
 
         game.centralCards = game.stackCards.removeMultiple(3).toMutableList()
+        resetPassCount()
+
+        onAllRefreshables { refreshAfterPass() }
     }
 
     /**
@@ -53,6 +58,8 @@ class PlayerActionService(
         val centralCards = rootService.gameState.centralCards
         val handCards = player.handCards
         player.handCards = centralCards.also { rootService.gameState.centralCards = handCards }
+
+        onAllRefreshables { refreshAfterChangedAllCards() }
     }
 
     /**
@@ -71,6 +78,8 @@ class PlayerActionService(
         player.handCards[handCardIndex] = centralCard.also {
             rootService.gameState.centralCards[centralCardIndex] = handCard
         }
+
+        onAllRefreshables { refreshAfterChangedCard() }
     }
 
     /**

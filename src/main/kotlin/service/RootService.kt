@@ -1,6 +1,7 @@
 package service
 
 import entity.GameState
+import view.Refreshable
 
 /**
  * This service is used for "inter service communication" as in providing the references to all other relevant classes.
@@ -24,6 +25,15 @@ class RootService {
         // TODO: other ui stuff
 
         gameService.startNewGame()
+    }
+
+    fun addRefreshable(newRefreshable: Refreshable) {
+        gameService.addRefreshable(newRefreshable)
+        playerActionService.addRefreshable(newRefreshable)
+    }
+
+    fun addRefreshables(vararg newRefreshables: Refreshable) {
+        newRefreshables.forEach { addRefreshable(it) }
     }
 
 }
