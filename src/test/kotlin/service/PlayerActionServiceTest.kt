@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito.*
+import org.mockito.Spy
 import org.mockito.junit.jupiter.MockitoExtension
 import utils.TestUtils.getListOfCards
 import utils.TestUtils.getPlayerList
@@ -38,7 +39,7 @@ class PlayerActionServiceTest {
 	 */
 	@BeforeEach
 	fun init() {
-		playerActionService = PlayerActionService(rootService)
+		playerActionService = spy(PlayerActionService(rootService))
 		`when`(rootService.gameState).thenReturn(gameState)
 	}
 
@@ -64,6 +65,7 @@ class PlayerActionServiceTest {
 	fun `pass if not all players have passed should not do any thing`() {
 		`when`(gameState.passCounter).thenReturn(1)
 		`when`(gameState.players).thenReturn(getPlayerList())
+		doNothing().`when`(playerActionService).nextPlayer()
 
 		playerActionService.pass()
 
