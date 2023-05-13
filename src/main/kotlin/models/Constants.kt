@@ -4,8 +4,12 @@ import tools.aqua.bgw.core.DEFAULT_CARD_HEIGHT
 import tools.aqua.bgw.core.DEFAULT_CARD_WIDTH
 import tools.aqua.bgw.util.Font
 import models.Colors.CYAN
+import models.Colors.RED
 import java.awt.Color
 
+/**
+ * This is a helper object and contains a collection of Strings, Numbers and other Constants used across this project.
+ */
 object Constants {
     // COMMON
     const val WINDOW_TITLE = "SoPra Schwimmen by Marvin Jütte"
@@ -25,6 +29,7 @@ object Constants {
     const val START_BUTTON_TEXT = "Start"
     const val AT_LEAST_TWO_PLAYERS_ARE_REQUIRED_ERROR_MESSAGE = "Please provide at least two player names!"
     val TITLE_LABEL_FONT = Font(size = 24, fontWeight = Font.FontWeight.BOLD, color = CYAN.color)
+    val ERROR_LABEL_FONT = Font(size = 24, color = RED.color)
 
     // GAME SCENE
     const val CENTRAL_CARDS_TEXT = "Central Cards"

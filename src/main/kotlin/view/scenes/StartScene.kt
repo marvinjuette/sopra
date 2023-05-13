@@ -8,25 +8,42 @@ import models.Colors.CONTENT_BACKGROUND_COLOR
 import models.Colors.CYAN
 import models.Colors.RED
 import models.Colors.WINDOW_BACKGROUND_COLOR
+import models.Constants.AT_LEAST_TWO_PLAYERS_ARE_REQUIRED_ERROR_MESSAGE
 import models.Constants.DEFAULT_MARGIN
 import models.Constants.DEFAULT_SPACING
 import models.Constants.DEFAULT_WINDOW_HEIGHT
 import models.Constants.DEFAULT_WINDOW_WIDTH
+import models.Constants.ERROR_LABEL_FONT
 import models.Constants.MENU_BUTTON_FONT
 import models.Constants.QUIT_BUTTON_TEXT
 import models.Constants.START_BUTTON_TEXT
 import models.Constants.TEXT_FIELD_HEIGHT
 import models.Constants.TEXT_FIELD_WIDTH
+import tools.aqua.bgw.core.Alignment
 import view.utils.ViewPositioning.calculateCenterX
 import view.utils.ViewPositioning.calculateCenterY
 import java.awt.Desktop
 import java.net.URL
 
+/**
+ * Start scene containing for fields for the player names and a start and quit button.
+ *
+ * @property contentHeight describes the height of the content
+ * @property buttonWidth describes the width of the start and quit button
+ * @property playerName1 [TextField] to query for the player name of the first player
+ * @property playerName2 [TextField] to query for the player name of the first player
+ * @property playerName3 [TextField] to query for the player name of the first player
+ * @property playerName4 [TextField] to query for the player name of the first player
+ * @property backgroundButton used to have a colorable background in the end scene
+ * @property errorLabel [Label] to display a error message if less than two player names are given
+ * @property startButton [Button] to start the game
+ * @property quitButton [Button] to exit the application
+ */
 class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
 
-    internal fun getSceneWidth() = this.width
+    private fun getSceneWidth() = this.width
 
-    internal val contentHeight = 5 * TEXT_FIELD_HEIGHT.toDouble() + 4 * DEFAULT_SPACING
+    private val contentHeight = 5 * TEXT_FIELD_HEIGHT.toDouble() + 4 * DEFAULT_SPACING
     private val buttonWidth = (TEXT_FIELD_WIDTH - DEFAULT_SPACING/2) / 2
 
     internal val playerName1 = TextField(
@@ -72,7 +89,14 @@ class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
         Desktop.getDesktop().browse(URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ").toURI())
     } }
 
-    internal val errorLabel = Label()
+    internal val errorLabel = Label(
+        posX = 0,
+        posY = backgroundButton.posY + contentHeight + DEFAULT_MARGIN + DEFAULT_SPACING,
+        width = getSceneWidth(),
+        text = AT_LEAST_TWO_PLAYERS_ARE_REQUIRED_ERROR_MESSAGE,
+        font = ERROR_LABEL_FONT,
+        alignment = Alignment.BOTTOM_CENTER
+    )
 
     internal val startButton = Button(
         posX = calculateCenterX(width, TEXT_FIELD_WIDTH.toDouble()),
@@ -94,8 +118,15 @@ class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
         visual = RED
     )
 
+    /**
+     * Initialize the start scene
+     */
     init {
         background = WINDOW_BACKGROUND_COLOR
+        backgroundButton.isDisabled = true
+
+        errorLabel.isVisible = false
+
         addComponents(
             backgroundButton,
             playerName1,

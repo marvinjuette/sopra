@@ -2,21 +2,25 @@ package view.controller
 
 import extensions.onButtonClicked
 import service.RootService
-import tools.aqua.bgw.core.Alignment
-import tools.aqua.bgw.util.Font
-import models.Constants
-import models.Constants.DEFAULT_MARGIN
-import models.Constants.DEFAULT_SPACING
 import view.Refreshable
+import view.scenes.EndScene
 import view.scenes.StartScene
-import java.awt.Color
 import kotlin.system.exitProcess
 
+/**
+ * This is the controller class for the end scene
+ *
+ * @param endScene References the [EndScene] that is to be controled by this controller
+ * @param rootService References the [RootService] to access things like the [entity.GameState]
+ */
 class StartViewController(
 	private val startScene: StartScene,
 	private val rootService: RootService
 ): Refreshable {
 
+	/**
+	 * Initialize some scene elements with their base functionality
+	 */
 	init {
 		startScene.startButton.onButtonClicked {
 			if (startScene.playerName1.text.isBlank() || startScene.playerName2.text.isBlank()) {
@@ -29,16 +33,18 @@ class StartViewController(
 		startScene.quitButton.onButtonClicked { exitProcess(0) }
 	}
 
+	/**
+	 * Shows the error with the error message that at least two player names need to be provided.
+	 */
 	private fun showErrorLabel() {
-		startScene.errorLabel.posX = .0
-		startScene.errorLabel.posY = startScene.backgroundButton.posY + startScene.contentHeight
-					+ DEFAULT_MARGIN + DEFAULT_SPACING
-		startScene.errorLabel.width = startScene.getSceneWidth()
-		startScene.errorLabel.text = Constants.AT_LEAST_TWO_PLAYERS_ARE_REQUIRED_ERROR_MESSAGE
-		startScene.errorLabel.font = Font(size = 24, color = Color.RED)
-		startScene.errorLabel.alignment = Alignment.BOTTOM_CENTER
+		startScene.errorLabel.isVisible = true
 	}
 
+	/**
+	 * Reads all entered player names and add them to a list.
+	 *
+	 * @return playerNames A [List<String>] that contains all 2-4 entered player names.
+	 */
 	private fun getPlayerNamesAsList(): List<String> {
 		val playerNames = mutableListOf<String>()
 		playerNames.add(startScene.playerName1.text.trim())
@@ -54,5 +60,4 @@ class StartViewController(
 
 		return playerNames.toList()
 	}
-
 }

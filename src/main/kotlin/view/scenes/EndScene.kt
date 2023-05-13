@@ -24,6 +24,28 @@ import view.utils.ViewPositioning.calculateCenterX
 import view.utils.ViewPositioning.calculateCenterY
 import view.Refreshable
 
+/**
+ * End scene to display player names and their score.
+ *
+ * @property playerNameLabelWidth describes the width of a player name label
+ * @property scoreLabelWidth describes the width of a score label
+ * @property scoreLabelHeight describes the height of a score label
+ * @property contentWidth describes the width of all content
+ * @property contentHeight describes the height of all content
+ * @property scoreLabel [Label] to display the score title
+ * @property player1NameLabel [Label] to display the name of player 1
+ * @property player1Score [Label] to display the score of player 1
+ * @property player2NameLabel [Label] to display the name of player 2
+ * @property player2Score [Label] to display the score of player 2
+ * @property player3NameLabel [Label] to display the name of player 3
+ * @property player3Score [Label] to display the score of player 3
+ * @property player4NameLabel [Label] to display the name of player 4
+ * @property player4Score [Label] to display the score of player 4
+ * @property newGameButton [Button] to open the players dialog again
+ * @property quitButton [Button] to quit the application
+ * @property newGameWithSamePlayerButton [Button] to directly start a new game with the same players
+ * @property backgroundButton [Button] Rick Astley
+ */
 class EndScene: MenuScene(
 	width = DEFAULT_WINDOW_WIDTH,
 	height = DEFAULT_WINDOW_HEIGHT,
@@ -159,6 +181,9 @@ class EndScene: MenuScene(
 		visual = CONTENT_BACKGROUND_COLOR
 	)
 
+	/**
+	 * Initialize end scene view
+	 */
 	init {
 		backgroundButton.isDisabled = true
 		player3NameLabel.isVisible = false

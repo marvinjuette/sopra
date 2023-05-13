@@ -12,15 +12,26 @@ import view.utils.CardViewGenerator.generateFlippedCardImage
 import view.animations.SelectCardAnimation.moveAnimation
 import view.Refreshable
 import view.SopraApplication
+import view.scenes.EndScene
 import view.scenes.GameScene
 import java.util.NoSuchElementException
 
+/**
+ * This is the controller class for the end scene
+ *
+ * @param endScene References the [EndScene] that is to be controled by this controller
+ * @param rootService References the [RootService] to access things like the [entity.GameState]
+ * @param sopraApplication References the [SopraApplication] to use it to show dialogs
+ */
 class GameViewController(
 	private val gameScene: GameScene,
 	private val rootService: RootService,
 	private val sopraApplication: SopraApplication
 ): Refreshable {
 
+	/**
+	 * Initialize some scene elements with their base functionality
+	 */
 	init {
 		gameScene.changeCardButton.onButtonClicked { changeCard() }
 		gameScene.changeAllCardsButton.onButtonClicked { rootService.playerActionService.changeAllCards() }
@@ -28,6 +39,9 @@ class GameViewController(
 		gameScene.knockButton.onButtonClicked { rootService.playerActionService.knock() }
 	}
 
+	/**
+	 * Updates all ui elements to display their initial values
+	 */
 	override fun refreshAfterGameStart() {
 		gameScene.passCounterLabel.text = "Pass: ${rootService.gameState.passCounter} / ${rootService.gameState.players.size}"
 
@@ -42,6 +56,9 @@ class GameViewController(
 		gameScene.centralStackLabel.text = "Central Stack (${rootService.gameState.stackCards.size})"
 	}
 
+	/**
+	 * Updates the displayed player name and creates the (hidden) card views into the player hand cards linear layout.
+	 */
 	override fun refreshAfterPlayerChange() {
 		val player = rootService.gameState.players[rootService.gameState.currentPlayer]
 		gameScene.playerNameLabel.text = player.name
@@ -50,13 +67,19 @@ class GameViewController(
 		player.handCards.forEach { gameScene.handCardsLinearLayout.add(generateCardImage(it)) }
 	}
 
+	/**
+	 *  Updates the pass counter after a player has passed.
+	 */
 	override fun refreshAfterPass() {
 		gameScene.passCounterLabel.text = "Pass: ${rootService.gameState.passCounter} / ${rootService.gameState.players.size}"
 	}
 
+	/**
+	 * Updates the pass counter and replaces the central cards with the 3 new central cards
+	 */
 	override fun refreshAfterPassWithCardsExchanged() {
+		refreshAfterPass()
 		gameScene.centralStackLabel.text = "Central Stack (${rootService.gameState.stackCards.size})"
-		gameScene.passCounterLabel.text = "Pass: ${rootService.gameState.passCounter} / ${rootService.gameState.players.size}"
 
 		gameScene.centralCardsLinearLayout.removeAll { true }
 		rootService.gameState.centralCards.forEach {
@@ -67,6 +90,10 @@ class GameViewController(
 		}
 	}
 
+	/**
+	 * Flips the hand cards of the player to make them visible and calculated the player score,
+	 * after the player revealed them.
+	 */
 	override fun refreshAfterPlayerRevealedCards() {
 		gameScene.handCardsLinearLayout.forEach {cardView ->
 			cardView.flip()
@@ -77,7 +104,16 @@ class GameViewController(
 		gameScene.pointsLabel.text = "Points: ${rootService.gameService.calculateScore(handCards)}"
 	}
 
+	/**
+	 * Helper function to un-focus the previous focused (central) card (if available) and focuses the newly selected.
+	 *
+	 * @param cardView References the [CardView] which is to be focused
+	 */
 	private fun focusCentralCard(cardView: CardView) {
+		if (!cardView.isFocusable) {
+			return
+		}
+
 		val currentlyHighlightedCardView = gameScene.centralCardsLinearLayout.filter { !it.isFocusable }
 		currentlyHighlightedCardView.forEach {
 			moveAnimation(it, false, gameScene)
@@ -89,7 +125,16 @@ class GameViewController(
 	}
 
 
+	/**
+	 * Helper function to un-focus the previous focused (hand) card (if available) and focuses the newly selected
+	 *
+	 * @param cardView References the [CardView] which is to be focused
+	 */
 	private fun focusHandCard(cardView: CardView) {
+		if (!cardView.isFocusable) {
+			return
+		}
+
 		val currentlyHighlightedCardView = gameScene.handCardsLinearLayout.filter { !it.isFocusable }
 		currentlyHighlightedCardView.forEach {
 			moveAnimation(it, true, gameScene)
@@ -100,7 +145,10 @@ class GameViewController(
 		cardView.isFocusable = false
 	}
 
-
+	/**
+	 *  Updates the central cards after a player has changed one or all his hand cards with one
+	 *  or all of the central cards.
+	 */
 	override fun refreshAfterChangedCentralCards() {
 		gameScene.centralCardsLinearLayout.removeAll { true }
 
@@ -113,11 +161,18 @@ class GameViewController(
 		}
 	}
 
+	/**
+	 * Changes the color of the knock button after a player knocked to indicate to every player that it is their last
+	 * round.
+	 */
 	override fun refreshAfterKnock() {
 		gameScene.knockButton.visual = Colors.CYAN
 	}
 
-	// Suppress swallowed exception because we catch it and show a custom error dialog with a custom error message
+	/**
+	 * This method checks whether one hand and one central card is selected if both are selected swaps them
+	 */
+	// SwallowedException because we catch the exception and show an error dialog with a custom error message
 	@Suppress("SwallowedException")
 	private fun changeCard() {
 		val handIndex: Int

@@ -2,6 +2,9 @@ package models
 
 import tools.aqua.bgw.visual.ColorVisual
 
+/**
+ * This is a helper object and contains a collection of colors used for this project.
+ */
 object Colors {
     // DEFAULT COLORS
     val WHITE = ColorVisual(255, 255, 255)

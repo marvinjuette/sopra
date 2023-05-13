@@ -29,6 +29,27 @@ import models.Constants.PASS_BUTTON_TEXT
 import models.Constants.TEXT_FIELD_HEIGHT
 import models.Constants.TEXT_FIELD_WIDTH
 
+
+/**
+ * Game scene to display the central cards, hand cards (of the current player) the centrals stack and actions buttons,
+ * so that the player can choose its actions.
+ *
+ * @property pointsLabel [Label] to display the score of the hand cards of the current player
+ * @property playerNameLabel [Label] to display the name of the current player
+ * @property passCounterLabel [Label] to display how many players out of total players have already passed
+ * @property infoBackgroundButton [Button] which is disabled but is needed as a background for the info labels
+ * @property centralCardsLabel [Label] to display title for central cards
+ * @property centralCardsLinearLayout [LinearLayout<CardView>] to display the card views of the current central cards
+ * @property handCardsLabel [Label] to display title for hand cards
+ * @property handCardsLinearLayout [LinearLayout<CardView>] to display the card views of the current hand cards
+ * @property centralStackLabel [Label] to display title for central card stack
+ * @property centralStackCardStack [CardStack<CardView>] to display the current card stack (cards are hidden)
+ * @property actionsLabel [Label] to display title for actions button
+ * @property changeCardButton [Button] representing the change single card action
+ * @property changeAllCardsButton [Button] representing the change all cards action
+ * @property passButton [Button] representing the pass action
+ * @property knockButton [Button] representing the knock action
+ */
 class GameScene: BoardGameScene(
 	width = DEFAULT_WINDOW_WIDTH,
 	height= DEFAULT_WINDOW_HEIGHT,
@@ -183,6 +204,9 @@ class GameScene: BoardGameScene(
 	)
 
 
+	/**
+	 * Initialize the game scene
+	 */
 	init {
 		infoBackgroundButton.isDisabled = true
 

@@ -1,6 +1,5 @@
 package service
 
-import entity.Player
 import entity.GameState
 import extensions.removeMultiple
 
@@ -71,7 +70,6 @@ class PlayerActionService(
     /**
      * Handles the logic for the change of a single hand card with a single open central card
      *
-     * @param player The [Player] who is switching one hand card
      * @param handCardIndex Index of the hand card which is to be exchanged
      * @param centralCardIndex Index of the open central card that is to be taken on hand
      */
