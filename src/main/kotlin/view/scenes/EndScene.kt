@@ -1,30 +1,30 @@
-package view
+package view.scenes
 
-import service.RootService
 import tools.aqua.bgw.components.uicomponents.Button
 import tools.aqua.bgw.components.uicomponents.Label
 import tools.aqua.bgw.core.*
-import utils.Colors.CONTENT_BACKGROUND_COLOR
-import utils.Colors.CYAN
-import utils.Colors.RED
-import utils.Colors.WHITE
-import utils.Colors.WINDOW_BACKGROUND_COLOR
-import utils.Constants.DEFAULT_MARGIN
-import utils.Constants.DEFAULT_SPACING
-import utils.Constants.MENU_BUTTON_FONT
-import utils.Constants.NEW_GAME_BUTTON_TEXT
-import utils.Constants.NEW_GAME_WITH_SAME_PLAYERS_BUTTON_TEXT
-import utils.Constants.PLAYER_NAME_FONT
-import utils.Constants.QUIT_BUTTON_TEXT
-import utils.Constants.SCORE_FONT
-import utils.Constants.SCORE_TEXT
-import utils.Constants.TEXT_FIELD_HEIGHT
-import utils.Constants.TEXT_FIELD_WIDTH
-import utils.Constants.TITLE_LABEL_FONT
-import utils.Utils.calculateCenterX
-import utils.Utils.calculateCenterY
+import models.Colors.CONTENT_BACKGROUND_COLOR
+import models.Colors.CYAN
+import models.Colors.RED
+import models.Colors.WHITE
+import models.Colors.WINDOW_BACKGROUND_COLOR
+import models.Constants.DEFAULT_MARGIN
+import models.Constants.DEFAULT_SPACING
+import models.Constants.MENU_BUTTON_FONT
+import models.Constants.NEW_GAME_BUTTON_TEXT
+import models.Constants.NEW_GAME_WITH_SAME_PLAYERS_BUTTON_TEXT
+import models.Constants.PLAYER_NAME_FONT
+import models.Constants.QUIT_BUTTON_TEXT
+import models.Constants.SCORE_FONT
+import models.Constants.SCORE_TEXT
+import models.Constants.TEXT_FIELD_HEIGHT
+import models.Constants.TEXT_FIELD_WIDTH
+import models.Constants.TITLE_LABEL_FONT
+import utils.ViewPositioning.calculateCenterX
+import utils.ViewPositioning.calculateCenterY
+import view.Refreshable
 
-class EndScene(rootService: RootService): MenuScene(
+class EndScene: MenuScene(
 	width = DEFAULT_WINDOW_WIDTH,
 	height = DEFAULT_WINDOW_HEIGHT,
 	background = WINDOW_BACKGROUND_COLOR

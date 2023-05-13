@@ -22,11 +22,7 @@ interface Refreshable {
 		return
 	}
 
-	fun refreshAfterChangedCard() {
-		return
-	}
-
-	fun refreshAfterChangedAllCards() {
+	fun refreshAfterChangedCentralCards() {
 		return
 	}
 
@@ -37,5 +33,4 @@ interface Refreshable {
 	fun refreshAfterPlayerRevealedCards() {
 		return
 	}
-
 }

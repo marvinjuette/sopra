@@ -2,21 +2,34 @@ package view
 
 import service.RootService
 import tools.aqua.bgw.core.BoardGameApplication
-import utils.Constants.WINDOW_TITLE
+import models.Constants.WINDOW_TITLE
+import view.controller.GameViewController
+import view.controller.PlayerChangedViewController
+import view.controller.StartViewController
+import view.scenes.EndScene
+import view.scenes.GameScene
+import view.scenes.PlayerChangedScene
+import view.scenes.StartScene
 
 class SopraApplication : BoardGameApplication(WINDOW_TITLE), Refreshable {
 
 	private val rootService = RootService()
-	private val startScene = StartScene(rootService)
-	private val gameScene = GameScene(rootService)
-	private val playerSwitchMenuScene = PlayerChangedScene(rootService)
-	private val endScene = EndScene(rootService)
+
+	private val startScene = StartScene()
+	private val gameScene = GameScene()
+	private val playerSwitchMenuScene = PlayerChangedScene()
+	private val endScene = EndScene()
+
+	private val startViewController = StartViewController(startScene, rootService)
+	private val gameViewController = GameViewController(gameScene, rootService, this)
+	private val playerChangedViewController = PlayerChangedViewController(playerSwitchMenuScene, rootService)
 
    init {
 		rootService.addRefreshables(
 			this,
-			gameScene,
-			playerSwitchMenuScene,
+			startViewController,
+			gameViewController,
+			playerChangedViewController,
 			endScene,
 		)
 		this.showMenuScene(startScene)

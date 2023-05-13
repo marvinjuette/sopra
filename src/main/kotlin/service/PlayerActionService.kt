@@ -64,7 +64,7 @@ class PlayerActionService(
         val handCards = player.handCards
         player.handCards = centralCards.also { rootService.gameState.centralCards = handCards }
 
-        onAllRefreshables { refreshAfterChangedAllCards() }
+        onAllRefreshables { refreshAfterChangedCentralCards() }
         nextPlayer()
     }
 
@@ -86,7 +86,7 @@ class PlayerActionService(
             rootService.gameState.centralCards[centralCardIndex] = handCard
         }
 
-        onAllRefreshables { refreshAfterChangedCard() }
+        onAllRefreshables { refreshAfterChangedCentralCards() }
         nextPlayer()
     }
 

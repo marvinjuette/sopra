@@ -1,9 +1,9 @@
-package utils
+package models
 
 import tools.aqua.bgw.core.DEFAULT_CARD_HEIGHT
 import tools.aqua.bgw.core.DEFAULT_CARD_WIDTH
 import tools.aqua.bgw.util.Font
-import utils.Colors.CYAN
+import models.Colors.CYAN
 import java.awt.Color
 
 object Constants {
@@ -50,4 +50,14 @@ object Constants {
     const val NEW_GAME_WITH_SAME_PLAYERS_BUTTON_TEXT = "Play with same Players"
     val PLAYER_NAME_FONT = Font(size = 20, color = CYAN.color)
     val SCORE_FONT = Font(size = 18, fontStyle = Font.FontStyle.ITALIC)
+
+    // NO HAND CARD SELECTED DIALOG
+    const val NO_HAND_CARD_SELECTED_DIALOG_TITLE = "Invalid move"
+    const val NO_HAND_CARD_SELECTED_DIALOG_HEADER = "No hand card selected"
+    const val NO_HAND_CARD_SELECTED_DIALOG_MESSAGE = "Please select a hand card by clicking on it"
+
+    // NO CENTRAL CARD SELECTED DIALOG
+    const val NO_CENTRAL_CARD_SELECTED_DIALOG_TITLE = "Invalid move"
+    const val NO_CENTRAL_CARD_SELECTED_DIALOG_HEADER = "No central card selected"
+    const val NO_CENTRAL_CARD_SELECTED_DIALOG_MESSAGE = "Please select a central card by clicking on it"
 }
