@@ -5,13 +5,18 @@ import service.RootService
 import tools.aqua.bgw.components.gamecomponentviews.CardView
 import tools.aqua.bgw.dialog.Dialog
 import tools.aqua.bgw.dialog.DialogType
-import models.Colors
-import models.Constants
+import view.*
 import view.utils.CardViewGenerator.generateCardImage
 import view.utils.CardViewGenerator.generateFlippedCardImage
 import view.animations.SelectCardAnimation.moveAnimation
-import view.Refreshable
-import view.SopraApplication
+import view.models.Colors.CYAN
+import view.models.Colors.RED
+import view.models.Constants.NO_CENTRAL_CARD_SELECTED_DIALOG_HEADER
+import view.models.Constants.NO_CENTRAL_CARD_SELECTED_DIALOG_MESSAGE
+import view.models.Constants.NO_CENTRAL_CARD_SELECTED_DIALOG_TITLE
+import view.models.Constants.NO_HAND_CARD_SELECTED_DIALOG_HEADER
+import view.models.Constants.NO_HAND_CARD_SELECTED_DIALOG_MESSAGE
+import view.models.Constants.NO_HAND_CARD_SELECTED_DIALOG_TITLE
 import view.scenes.GameScene
 import java.util.NoSuchElementException
 
@@ -51,7 +56,7 @@ class GameViewController(
 
 		refreshAfterPlayerChange()
 
-		gameScene.knockButton.visual = Colors.RED
+		gameScene.knockButton.visual = RED
 		gameScene.centralStackLabel.text = "Central Stack (${rootService.gameState.stackCards.size})"
 	}
 
@@ -165,7 +170,7 @@ class GameViewController(
 	 * round.
 	 */
 	override fun refreshAfterKnock() {
-		gameScene.knockButton.visual = Colors.CYAN
+		gameScene.knockButton.visual = CYAN
 	}
 
 	/**
@@ -184,9 +189,9 @@ class GameViewController(
 			sopraApplication.showDialog(
 				Dialog(
 					DialogType.ERROR,
-					Constants.NO_HAND_CARD_SELECTED_DIALOG_TITLE,
-					Constants.NO_HAND_CARD_SELECTED_DIALOG_HEADER,
-					Constants.NO_HAND_CARD_SELECTED_DIALOG_MESSAGE,
+					NO_HAND_CARD_SELECTED_DIALOG_TITLE,
+					NO_HAND_CARD_SELECTED_DIALOG_HEADER,
+					NO_HAND_CARD_SELECTED_DIALOG_MESSAGE,
 				)
 			)
 			return
@@ -199,9 +204,9 @@ class GameViewController(
 			sopraApplication.showDialog(
 				Dialog(
 					DialogType.ERROR,
-					Constants.NO_CENTRAL_CARD_SELECTED_DIALOG_TITLE,
-					Constants.NO_CENTRAL_CARD_SELECTED_DIALOG_HEADER,
-					Constants.NO_CENTRAL_CARD_SELECTED_DIALOG_MESSAGE
+					NO_CENTRAL_CARD_SELECTED_DIALOG_TITLE,
+					NO_CENTRAL_CARD_SELECTED_DIALOG_HEADER,
+					NO_CENTRAL_CARD_SELECTED_DIALOG_MESSAGE
 				)
 			)
 			return

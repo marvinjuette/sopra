@@ -2,11 +2,11 @@ package view
 
 import service.RootService
 import tools.aqua.bgw.core.BoardGameApplication
-import models.Constants.WINDOW_TITLE
 import view.controller.EndViewController
 import view.controller.GameViewController
 import view.controller.PlayerChangedViewController
 import view.controller.StartViewController
+import view.models.Constants.WINDOW_TITLE
 import view.scenes.EndScene
 import view.scenes.GameScene
 import view.scenes.PlayerChangedScene

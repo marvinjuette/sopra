@@ -1,8 +1,8 @@
 package view.controller
 
 import service.RootService
-import models.Constants
 import view.Refreshable
+import view.models.Constants.PRESS_KEY_TO_SHOW_CARDS_TEXT
 import view.scenes.PlayerChangedScene
 
 /**
@@ -53,6 +53,6 @@ class PlayerChangedViewController(
 	 */
 	private fun generateRevealHintText(): String {
 		val playerName = rootService.gameState.players[rootService.gameState.currentPlayer].name
-		return "${playerName}, ${Constants.PRESS_KEY_TO_SHOW_CARDS_TEXT}"
+		return "${playerName}, $PRESS_KEY_TO_SHOW_CARDS_TEXT"
 	}
 }

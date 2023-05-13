@@ -3,26 +3,26 @@ package view.scenes
 import tools.aqua.bgw.components.uicomponents.Button
 import tools.aqua.bgw.components.uicomponents.Label
 import tools.aqua.bgw.core.*
-import models.Colors.CONTENT_BACKGROUND_COLOR
-import models.Colors.CYAN
-import models.Colors.RED
-import models.Colors.WHITE
-import models.Colors.WINDOW_BACKGROUND_COLOR
-import models.Constants.DEFAULT_MARGIN
-import models.Constants.DEFAULT_SPACING
-import models.Constants.MENU_BUTTON_FONT
-import models.Constants.NEW_GAME_BUTTON_TEXT
-import models.Constants.NEW_GAME_WITH_SAME_PLAYERS_BUTTON_TEXT
-import models.Constants.PLAYER_NAME_FONT
-import models.Constants.QUIT_BUTTON_TEXT
-import models.Constants.SCORE_FONT
-import models.Constants.SCORE_TEXT
-import models.Constants.TEXT_FIELD_HEIGHT
-import models.Constants.TEXT_FIELD_WIDTH
-import models.Constants.TITLE_LABEL_FONT
 import view.utils.ViewPositioning.calculateCenterX
 import view.utils.ViewPositioning.calculateCenterY
 import view.Refreshable
+import view.models.Colors.CONTENT_BACKGROUND_COLOR
+import view.models.Colors.CYAN
+import view.models.Colors.RED
+import view.models.Colors.WHITE
+import view.models.Colors.WINDOW_BACKGROUND_COLOR
+import view.models.Constants.DEFAULT_MARGIN
+import view.models.Constants.DEFAULT_SPACING
+import view.models.Constants.MENU_BUTTON_FONT
+import view.models.Constants.NEW_GAME_BUTTON_TEXT
+import view.models.Constants.NEW_GAME_WITH_SAME_PLAYERS_BUTTON_TEXT
+import view.models.Constants.PLAYER_NAME_FONT
+import view.models.Constants.QUIT_BUTTON_TEXT
+import view.models.Constants.SCORE_FONT
+import view.models.Constants.SCORE_TEXT
+import view.models.Constants.TEXT_FIELD_HEIGHT
+import view.models.Constants.TEXT_FIELD_WIDTH
+import view.models.Constants.TITLE_LABEL_FONT
 
 /**
  * End scene to display player names and their score.

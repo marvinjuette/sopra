@@ -7,28 +7,27 @@ import tools.aqua.bgw.components.uicomponents.Button
 import tools.aqua.bgw.components.uicomponents.Label
 import tools.aqua.bgw.core.Alignment
 import tools.aqua.bgw.core.BoardGameScene
-import models.Colors.CONTENT_BACKGROUND_COLOR
-import models.Colors.WHITE
-import models.Colors.WINDOW_BACKGROUND_COLOR
-import models.Constants.ACTIONS_TEXT
-import models.Constants.ACTION_BUTTON_FONT
-import models.Constants.CARD_LINEAR_LAYOUT_HEIGHT
-import models.Constants.CARD_LINEAR_LAYOUT_SPACING
-import models.Constants.CARD_LINEAR_LAYOUT_WIDTH
-import models.Constants.CENTRAL_CARDS_TEXT
-import models.Constants.CHANGE_ALL_CARDS_BUTTON_TEXT
-import models.Constants.CHANGE_CARD_BUTTON_TEXT
-import models.Constants.DEFAULT_MARGIN
-import models.Constants.DEFAULT_SPACING
-import models.Constants.DEFAULT_WINDOW_HEIGHT
-import models.Constants.DEFAULT_WINDOW_WIDTH
-import models.Constants.HAND_CARDS_TEXT
-import models.Constants.KNOCK_BUTTON_TEXT
-import models.Constants.LABEL_FONT
-import models.Constants.PASS_BUTTON_TEXT
-import models.Constants.TEXT_FIELD_HEIGHT
-import models.Constants.TEXT_FIELD_WIDTH
-
+import view.models.Colors.CONTENT_BACKGROUND_COLOR
+import view.models.Colors.WHITE
+import view.models.Colors.WINDOW_BACKGROUND_COLOR
+import view.models.Constants.ACTIONS_TEXT
+import view.models.Constants.ACTION_BUTTON_FONT
+import view.models.Constants.CARD_LINEAR_LAYOUT_HEIGHT
+import view.models.Constants.CARD_LINEAR_LAYOUT_SPACING
+import view.models.Constants.CARD_LINEAR_LAYOUT_WIDTH
+import view.models.Constants.CENTRAL_CARDS_TEXT
+import view.models.Constants.CHANGE_ALL_CARDS_BUTTON_TEXT
+import view.models.Constants.CHANGE_CARD_BUTTON_TEXT
+import view.models.Constants.DEFAULT_MARGIN
+import view.models.Constants.DEFAULT_SPACING
+import view.models.Constants.DEFAULT_WINDOW_HEIGHT
+import view.models.Constants.DEFAULT_WINDOW_WIDTH
+import view.models.Constants.HAND_CARDS_TEXT
+import view.models.Constants.KNOCK_BUTTON_TEXT
+import view.models.Constants.LABEL_FONT
+import view.models.Constants.PASS_BUTTON_TEXT
+import view.models.Constants.TEXT_FIELD_HEIGHT
+import view.models.Constants.TEXT_FIELD_WIDTH
 
 /**
  * Game scene to display the central cards, hand cards (of the current player) the centrals stack and actions buttons,
@@ -58,7 +57,7 @@ class GameScene: BoardGameScene(
 
 	internal val pointsLabel = Label(
 		posX = DEFAULT_MARGIN,
-		posY = DEFAULT_MARGIN/4,
+		posY = DEFAULT_MARGIN /4,
 		width = TEXT_FIELD_WIDTH,
 		height = TEXT_FIELD_HEIGHT,
 		font = LABEL_FONT,

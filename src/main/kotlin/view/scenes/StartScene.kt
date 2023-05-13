@@ -4,22 +4,22 @@ import tools.aqua.bgw.components.uicomponents.Button
 import tools.aqua.bgw.components.uicomponents.Label
 import tools.aqua.bgw.components.uicomponents.TextField
 import tools.aqua.bgw.core.MenuScene
-import models.Colors.CONTENT_BACKGROUND_COLOR
-import models.Colors.CYAN
-import models.Colors.RED
-import models.Colors.WINDOW_BACKGROUND_COLOR
-import models.Constants.AT_LEAST_TWO_PLAYERS_ARE_REQUIRED_ERROR_MESSAGE
-import models.Constants.DEFAULT_MARGIN
-import models.Constants.DEFAULT_SPACING
-import models.Constants.DEFAULT_WINDOW_HEIGHT
-import models.Constants.DEFAULT_WINDOW_WIDTH
-import models.Constants.ERROR_LABEL_FONT
-import models.Constants.MENU_BUTTON_FONT
-import models.Constants.QUIT_BUTTON_TEXT
-import models.Constants.START_BUTTON_TEXT
-import models.Constants.TEXT_FIELD_HEIGHT
-import models.Constants.TEXT_FIELD_WIDTH
 import tools.aqua.bgw.core.Alignment
+import view.models.Colors.CONTENT_BACKGROUND_COLOR
+import view.models.Colors.CYAN
+import view.models.Colors.RED
+import view.models.Colors.WINDOW_BACKGROUND_COLOR
+import view.models.Constants.AT_LEAST_TWO_PLAYERS_ARE_REQUIRED_ERROR_MESSAGE
+import view.models.Constants.DEFAULT_MARGIN
+import view.models.Constants.DEFAULT_SPACING
+import view.models.Constants.DEFAULT_WINDOW_HEIGHT
+import view.models.Constants.DEFAULT_WINDOW_WIDTH
+import view.models.Constants.ERROR_LABEL_FONT
+import view.models.Constants.MENU_BUTTON_FONT
+import view.models.Constants.QUIT_BUTTON_TEXT
+import view.models.Constants.START_BUTTON_TEXT
+import view.models.Constants.TEXT_FIELD_HEIGHT
+import view.models.Constants.TEXT_FIELD_WIDTH
 import view.utils.ViewPositioning.calculateCenterX
 import view.utils.ViewPositioning.calculateCenterY
 import java.awt.Desktop
@@ -41,7 +41,7 @@ import java.net.URL
 class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
 
     private val contentHeight = 5 * TEXT_FIELD_HEIGHT.toDouble() + 4 * DEFAULT_SPACING
-    private val buttonWidth = (TEXT_FIELD_WIDTH - DEFAULT_SPACING/2) / 2
+    private val buttonWidth = (TEXT_FIELD_WIDTH - DEFAULT_SPACING /2) / 2
 
     internal val playerName1 = TextField(
         posX = calculateCenterX(width, TEXT_FIELD_WIDTH.toDouble()),
@@ -106,7 +106,7 @@ class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
     )
 
     internal val quitButton = Button(
-        posX = startButton.posX + startButton.width + DEFAULT_SPACING/2,
+        posX = startButton.posX + startButton.width + DEFAULT_SPACING /2,
         posY = startButton.posY,
         width = buttonWidth,
         height = TEXT_FIELD_HEIGHT,

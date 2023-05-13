@@ -3,11 +3,11 @@ package view.scenes
 import tools.aqua.bgw.components.uicomponents.Label
 import tools.aqua.bgw.core.MenuScene
 import tools.aqua.bgw.util.Font
-import models.Colors.WHITE
-import models.Colors.WINDOW_BACKGROUND_COLOR
-import models.Constants.DEFAULT_WINDOW_HEIGHT
-import models.Constants.DEFAULT_WINDOW_WIDTH
 import view.Refreshable
+import view.models.Colors.WHITE
+import view.models.Colors.WINDOW_BACKGROUND_COLOR
+import view.models.Constants.DEFAULT_WINDOW_HEIGHT
+import view.models.Constants.DEFAULT_WINDOW_WIDTH
 
 /**
  * Player change scene which is used to blur the game scene so that other players cannot see the current players

@@ -1,10 +1,11 @@
 package view.utils
 
 import entity.Card
-import models.Constants
 import service.CardImageLoader
 import tools.aqua.bgw.components.gamecomponentviews.CardView
 import tools.aqua.bgw.visual.ImageVisual
+import view.models.Constants.CARD_HEIGHT
+import view.models.Constants.CARD_WIDTH
 
 /**
  * Helper object containing a collection of functions to make it easier to generate card views based on the input card
@@ -21,8 +22,8 @@ object CardViewGenerator {
 	fun generateCardImage(card: Card) = CardView(
 		posX = 0.0,
 		posY = 0.0,
-		width = Constants.CARD_WIDTH,
-		height = Constants.CARD_HEIGHT,
+		width = CARD_WIDTH,
+		height = CARD_HEIGHT,
 		front = ImageVisual(cardImageLoader.frontImageFor(card.suit, card.value)),
 		back = ImageVisual(cardImageLoader.backImage)
 	)
