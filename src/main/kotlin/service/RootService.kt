@@ -10,7 +10,7 @@ import view.Refreshable
  * @property gameService Reference to the initialized [GameService]
  * @property gameState Reference to the initialized [GameState]
  */
-class RootService() {
+class RootService {
 
     val playerActionService = PlayerActionService(this)
     val gameService = GameService(this)

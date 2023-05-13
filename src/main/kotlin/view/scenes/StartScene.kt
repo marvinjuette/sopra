@@ -96,6 +96,15 @@ class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
 
     init {
         background = WINDOW_BACKGROUND_COLOR
-        addComponents(backgroundButton, playerName1, playerName2, playerName3, playerName4, startButton, quitButton, errorLabel)
+        addComponents(
+            backgroundButton,
+            playerName1,
+            playerName2,
+            playerName3,
+            playerName4,
+            startButton,
+            quitButton,
+            errorLabel
+        )
     }
 }

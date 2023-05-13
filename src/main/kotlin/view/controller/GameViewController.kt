@@ -1,16 +1,15 @@
 package view.controller
 
-import entity.Card
 import extensions.onButtonClicked
-import service.CardImageLoader
 import service.RootService
 import tools.aqua.bgw.animation.MovementAnimation
 import tools.aqua.bgw.components.gamecomponentviews.CardView
 import tools.aqua.bgw.dialog.Dialog
 import tools.aqua.bgw.dialog.DialogType
-import tools.aqua.bgw.visual.ImageVisual
 import models.Colors
 import models.Constants
+import utils.CardViewGenerator.generateCardImage
+import utils.CardViewGenerator.generateFlippedCardImage
 import view.Refreshable
 import view.SopraApplication
 import view.scenes.GameScene
@@ -21,8 +20,6 @@ class GameViewController(
 	private val rootService: RootService,
 	private val sopraApplication: SopraApplication
 ): Refreshable {
-
-	private val cardImageLoader = CardImageLoader()
 
 	init {
 		gameScene.changeCardButton.onButtonClicked { changeCard() }
@@ -37,7 +34,7 @@ class GameViewController(
 		refreshAfterChangedCentralCards()
 
 		gameScene.centralStackCardStack.removeAll { true }
-		rootService.gameState.stackCards.forEach { gameScene.centralStackCardStack.add(getCardImage(it)) }
+		rootService.gameState.stackCards.forEach { gameScene.centralStackCardStack.add(generateCardImage(it)) }
 
 		refreshAfterPlayerChange()
 
@@ -50,7 +47,7 @@ class GameViewController(
 		gameScene.playerNameLabel.text = player.name
 
 		gameScene.handCardsLinearLayout.removeAll { true }
-		player.handCards.forEach { gameScene.handCardsLinearLayout.add(getCardImage(it)) }
+		player.handCards.forEach { gameScene.handCardsLinearLayout.add(generateCardImage(it)) }
 	}
 
 	override fun refreshAfterPass() {
@@ -63,7 +60,7 @@ class GameViewController(
 
 		gameScene.centralCardsLinearLayout.removeAll { true }
 		rootService.gameState.centralCards.forEach {
-			gameScene.centralCardsLinearLayout.add(getFlippedCardImage(it))
+			gameScene.centralCardsLinearLayout.add(generateFlippedCardImage(it))
 		}
 		gameScene.centralCardsLinearLayout.forEach {
 			cardView -> cardView.onMouseClicked = { focusCentralCard(cardView) }
@@ -122,7 +119,7 @@ class GameViewController(
 		gameScene.centralCardsLinearLayout.removeAll { true }
 
 		rootService.gameState.centralCards.forEach {
-			gameScene.centralCardsLinearLayout.add(getFlippedCardImage(it))
+			gameScene.centralCardsLinearLayout.add(generateFlippedCardImage(it))
 		}
 
 		gameScene.centralCardsLinearLayout.forEach { cardView ->
@@ -134,9 +131,12 @@ class GameViewController(
 		gameScene.knockButton.visual = Colors.CYAN
 	}
 
+	// Suppress swallowed exception because we catch it and show a custom error dialog with a custom error message
+	@Suppress("SwallowedException")
 	private fun changeCard() {
 		val handIndex: Int
 		val centralIndex: Int
+
 		try {
 			val selectedHandCard = gameScene.handCardsLinearLayout.first { !it.isFocusable }
 			handIndex = gameScene.handCardsLinearLayout.indexOf(selectedHandCard)
@@ -146,7 +146,7 @@ class GameViewController(
 					DialogType.ERROR,
 					Constants.NO_HAND_CARD_SELECTED_DIALOG_TITLE,
 					Constants.NO_HAND_CARD_SELECTED_DIALOG_HEADER,
-					Constants.NO_HAND_CARD_SELECTED_DIALOG_MESSAGE
+					Constants.NO_HAND_CARD_SELECTED_DIALOG_MESSAGE,
 				)
 			)
 			return
@@ -168,20 +168,5 @@ class GameViewController(
 		}
 
 		rootService.playerActionService.changeCard(handIndex, centralIndex)
-	}
-
-	fun getCardImage(card: Card) = CardView(
-		posX = 0.0,
-		posY = 0.0,
-		width = Constants.CARD_WIDTH,
-		height = Constants.CARD_HEIGHT,
-		front = ImageVisual(cardImageLoader.frontImageFor(card.suit, card.value)),
-		back = ImageVisual(cardImageLoader.backImage)
-	)
-
-	fun getFlippedCardImage(card: Card): CardView {
-		val cardView = getCardImage(card)
-		cardView.showCardSide(CardView.CardSide.FRONT)
-		return cardView
 	}
 }
