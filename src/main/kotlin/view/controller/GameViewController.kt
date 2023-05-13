@@ -12,14 +12,13 @@ import view.utils.CardViewGenerator.generateFlippedCardImage
 import view.animations.SelectCardAnimation.moveAnimation
 import view.Refreshable
 import view.SopraApplication
-import view.scenes.EndScene
 import view.scenes.GameScene
 import java.util.NoSuchElementException
 
 /**
  * This is the controller class for the end scene
  *
- * @param endScene References the [EndScene] that is to be controled by this controller
+ * @param gameScene References the [GameScene] that is to be controled by this controller
  * @param rootService References the [RootService] to access things like the [entity.GameState]
  * @param sopraApplication References the [SopraApplication] to use it to show dialogs
  */

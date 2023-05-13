@@ -17,11 +17,21 @@ class RootService {
     val gameState = GameState(0, 0, mutableListOf(), mutableListOf(), emptyList())
 
 
+    /**
+     * Adds a single refreshable to the list of refeshables of the [GameService] and of the [PlayerActionService].
+     *
+     * @param newRefreshable [Refreshable] that should be added to the refreshables list
+     */
     fun addRefreshable(newRefreshable: Refreshable) {
         gameService.addRefreshable(newRefreshable)
         playerActionService.addRefreshable(newRefreshable)
     }
 
+    /**
+     * Adds all provided refreshables to the list of refrehsables of the [GameService] and of the [PlayerActionService].
+     *
+     * @param newRefreshables vararg of [Refreshable]s that should be added to the refreshables lists
+     */
     fun addRefreshables(vararg newRefreshables: Refreshable) {
         newRefreshables.forEach { addRefreshable(it) }
     }

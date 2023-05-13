@@ -3,14 +3,13 @@ package view.controller
 import extensions.onButtonClicked
 import service.RootService
 import view.Refreshable
-import view.scenes.EndScene
 import view.scenes.StartScene
 import kotlin.system.exitProcess
 
 /**
  * This is the controller class for the end scene
  *
- * @param endScene References the [EndScene] that is to be controled by this controller
+ * @param startScene References the [StartScene] that is to be controled by this controller
  * @param rootService References the [RootService] to access things like the [entity.GameState]
  */
 class StartViewController(

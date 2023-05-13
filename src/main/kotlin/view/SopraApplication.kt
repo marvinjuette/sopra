@@ -13,7 +13,7 @@ import view.scenes.PlayerChangedScene
 import view.scenes.StartScene
 
 /**
- * This class ia a implementation of the [BoardGameApplication] and is needed in order for the game to be run in BGW
+ * This class ia an implementation of the [BoardGameApplication] and is needed in order for the game to be run in BGW
  */
 class SopraApplication: BoardGameApplication(WINDOW_TITLE), Refreshable {
 
