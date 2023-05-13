@@ -34,14 +34,11 @@ import java.net.URL
  * @property playerName2 [TextField] to query for the player name of the first player
  * @property playerName3 [TextField] to query for the player name of the first player
  * @property playerName4 [TextField] to query for the player name of the first player
- * @property backgroundButton used to have a colorable background in the end scene
  * @property errorLabel [Label] to display a error message if less than two player names are given
  * @property startButton [Button] to start the game
  * @property quitButton [Button] to exit the application
  */
 class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
-
-    private fun getSceneWidth() = this.width
 
     private val contentHeight = 5 * TEXT_FIELD_HEIGHT.toDouble() + 4 * DEFAULT_SPACING
     private val buttonWidth = (TEXT_FIELD_WIDTH - DEFAULT_SPACING/2) / 2
@@ -78,7 +75,7 @@ class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
         prompt = "Player 4 [Optional]"
     )
 
-    internal val backgroundButton = Button(
+    private val backgroundButton = Button(
         posX = calculateCenterX(width, TEXT_FIELD_WIDTH.toDouble()) - 0.5 * DEFAULT_MARGIN,
         posY = calculateCenterY(height, contentHeight) - 0.5 * DEFAULT_MARGIN,
         width = TEXT_FIELD_WIDTH + DEFAULT_MARGIN,
@@ -92,7 +89,7 @@ class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
     internal val errorLabel = Label(
         posX = 0,
         posY = backgroundButton.posY + contentHeight + DEFAULT_MARGIN + DEFAULT_SPACING,
-        width = getSceneWidth(),
+        width = width,
         text = AT_LEAST_TWO_PLAYERS_ARE_REQUIRED_ERROR_MESSAGE,
         font = ERROR_LABEL_FONT,
         alignment = Alignment.BOTTOM_CENTER
