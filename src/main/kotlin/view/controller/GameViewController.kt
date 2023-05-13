@@ -2,7 +2,6 @@ package view.controller
 
 import extensions.onButtonClicked
 import service.RootService
-import tools.aqua.bgw.animation.MovementAnimation
 import tools.aqua.bgw.components.gamecomponentviews.CardView
 import tools.aqua.bgw.dialog.Dialog
 import tools.aqua.bgw.dialog.DialogType
@@ -10,6 +9,7 @@ import models.Colors
 import models.Constants
 import utils.CardViewGenerator.generateCardImage
 import utils.CardViewGenerator.generateFlippedCardImage
+import view.animations.SelectCardAnimation.moveAnimation
 import view.Refreshable
 import view.SopraApplication
 import view.scenes.GameScene
@@ -80,11 +80,11 @@ class GameViewController(
 	private fun focusCentralCard(cardView: CardView) {
 		val currentlyHighlightedCardView = gameScene.centralCardsLinearLayout.filter { !it.isFocusable }
 		currentlyHighlightedCardView.forEach {
-			moveAnimation(it, false)
+			moveAnimation(it, false, gameScene)
 			it.isFocusable = true
 		}
 
-		moveAnimation(cardView, true)
+		moveAnimation(cardView, true, gameScene)
 		cardView.isFocusable = false
 	}
 
@@ -92,28 +92,14 @@ class GameViewController(
 	private fun focusHandCard(cardView: CardView) {
 		val currentlyHighlightedCardView = gameScene.handCardsLinearLayout.filter { !it.isFocusable }
 		currentlyHighlightedCardView.forEach {
-			moveAnimation(it, true)
+			moveAnimation(it, true, gameScene)
 			it.isFocusable = true
 		}
 
-		moveAnimation(cardView, false)
+		moveAnimation(cardView, false, gameScene)
 		cardView.isFocusable = false
 	}
 
-	private fun moveAnimation(cardView: CardView, moveDown: Boolean) {
-		val yChange = 50 * if (moveDown) 1 else -1
-		gameScene.playAnimation(
-			MovementAnimation(
-				componentView = cardView,
-				byY = yChange,
-				duration = 500
-			).apply {
-				onFinished = {
-					cardView.posY += yChange
-				}
-			}
-		)
-	}
 
 	override fun refreshAfterChangedCentralCards() {
 		gameScene.centralCardsLinearLayout.removeAll { true }
