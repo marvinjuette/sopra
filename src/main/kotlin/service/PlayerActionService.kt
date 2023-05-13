@@ -21,7 +21,7 @@ class PlayerActionService(
 
         player.hasKnocked = true
         onAllRefreshables { refreshAfterKnock() }
-        nextPlayer()
+        rootService.gameService.nextPlayer()
     }
 
     /**
@@ -37,19 +37,20 @@ class PlayerActionService(
 
         if (game.passCounter != game.players.size) {
             onAllRefreshables { refreshAfterPass() }
-            nextPlayer()
+            rootService.gameService.nextPlayer()
             return
         }
 
         if (game.stackCards.size < 3) {
-           return rootService.gameService.finishGame()
+            onAllRefreshables { refreshAfterGameEnd() }
+            return
         }
 
         game.centralCards = game.stackCards.removeMultiple(3).toMutableList()
         resetPassCount()
 
         onAllRefreshables { refreshAfterPassWithCardsExchanged() }
-        nextPlayer()
+        rootService.gameService.nextPlayer()
     }
 
     /**
@@ -64,7 +65,7 @@ class PlayerActionService(
         player.handCards = centralCards.also { rootService.gameState.centralCards = handCards }
 
         onAllRefreshables { refreshAfterChangedCentralCards() }
-        nextPlayer()
+        rootService.gameService.nextPlayer()
     }
 
     /**
@@ -85,9 +86,12 @@ class PlayerActionService(
         }
 
         onAllRefreshables { refreshAfterChangedCentralCards() }
-        nextPlayer()
+        rootService.gameService.nextPlayer()
     }
 
+    /**
+     * Return the [entity.Player] object of the current player
+     */
     private fun getCurrentPlayer() = rootService.gameState.players[rootService.gameState.currentPlayer]
 
     /**
@@ -97,21 +101,4 @@ class PlayerActionService(
         rootService.gameState.passCounter = 0
     }
 
-    /**
-     * End the turn of the current player and updates the game state so that the next player is the now
-     * the current player.
-     */
-    fun nextPlayer() {
-        rootService.gameState.currentPlayer++
-
-        if (rootService.gameState.currentPlayer == rootService.gameState.players.size) {
-            rootService.gameState.currentPlayer = 0
-        }
-
-        if (getCurrentPlayer().hasKnocked) {
-            rootService.gameService.finishGame()
-        } else {
-            onAllRefreshables { refreshAfterPlayerChange() }
-        }
-    }
 }

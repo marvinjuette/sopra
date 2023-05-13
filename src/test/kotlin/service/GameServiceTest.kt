@@ -9,6 +9,7 @@ import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
 import utils.TestUtils.getListOfCards
+import view.Refreshable
 
 /**
  * This class contains all unit tests for the [GameService]
@@ -16,6 +17,7 @@ import utils.TestUtils.getListOfCards
  * @property rootService Mock object of the [RootService]
  * @property gameState Mock object of the [GameState]
  * @property playerActionService Mock object of the [PlayerActionService]
+ * @property refreshable Instance of [Refreshable] to test on all refreshables
  * @property gameService Instance of the [GameService]
  */
 @ExtendWith(MockitoExtension::class)
@@ -27,6 +29,8 @@ class GameServiceTest {
 	private lateinit var gameState: GameState
 	@Mock
 	private lateinit var playerActionService: PlayerActionService
+	@Mock
+	private lateinit var refreshable: Refreshable
 
 	private lateinit var gameService: GameService
 
@@ -44,7 +48,8 @@ class GameServiceTest {
 	 */
 	@Test
 	fun `start new game properly resets the game state`() {
-		gameService = GameServiceStub(rootService)
+		gameService = spy(GameService(rootService))
+		gameService.addRefreshable(refreshable)
 
 		doReturn(gameState).`when`(rootService).gameState
 		doReturn(playerActionService).`when`(rootService).playerActionService
@@ -62,6 +67,74 @@ class GameServiceTest {
 		verify(gameState, times(1)).stackCards = anyList()
 		verify(gameState, times(1)).centralCards = anyList()
 		verify(playerMock, times(1)).handCards = anyList()
+		verify(refreshable, times(1)).refreshAfterGameStart()
+	}
+
+	/**
+	 * Tests if the game state is properly updated by the next player method and if the right method
+	 * of the [Refreshable]s is called.
+	 */
+	@Test
+	fun `test game state updated correctly player 1 switched to player 2 player 2 hasn't knocked`() {
+		gameService = spy(GameService(rootService))
+		gameService.addRefreshable(refreshable)
+
+		val player1 = mock(Player::class.java)
+		val player2 = mock(Player::class.java)
+		`when`(rootService.gameState).thenReturn(gameState)
+		`when`(gameState.currentPlayer).thenReturn(0)
+		`when`(gameState.players).thenReturn(listOf(player1, player2))
+		`when`(player1.hasKnocked).thenReturn(false)
+
+		gameService.nextPlayer()
+
+		verify(gameState, times(1)).currentPlayer = 1
+		verify(refreshable, times(1)).refreshAfterPlayerChange()
+	}
+
+	/**
+	 * Tests if the game state is properly updated by the next player method and if the right method
+	 * of the [Refreshable]s is called after we reached a player who has knocked.
+	 */
+	@Test
+	fun `test game state updated correctly player 1 switched to player 2 and player 2 has knocked`() {
+		gameService = spy(GameService(rootService))
+		gameService.addRefreshable(refreshable)
+
+		val player1 = mock(Player::class.java)
+		val player2 = mock(Player::class.java)
+		`when`(rootService.gameState).thenReturn(gameState)
+		`when`(gameState.currentPlayer).thenReturn(0)
+		`when`(gameState.players).thenReturn(listOf(player1, player2))
+		`when`(player1.hasKnocked).thenReturn(true)
+
+		gameService.nextPlayer()
+
+		verify(gameState, times(1)).currentPlayer = 1
+		verify(refreshable, times(1)).refreshAfterGameEnd()
+	}
+
+	/**
+	 * Tests if the game state is properly updated and the proper method of the [Refreshable]s is called by
+	 * the next player method if we have to jump to the start of the players list.
+	 */
+	@Test
+	fun `test game state updated correctly player 2 switched to player 1`() {
+		gameService = spy(GameService(rootService))
+		gameService.addRefreshable(refreshable)
+
+		val player1 = mock(Player::class.java)
+		val player2 = mock(Player::class.java)
+		`when`(rootService.gameState).thenReturn(gameState)
+		`when`(gameState.currentPlayer).thenReturn(2)
+		`when`(gameState.players).thenReturn(listOf(player1, player2))
+		`when`(player1.hasKnocked).thenReturn(false)
+		doReturn(player1).`when`(gameService).getCurrentPlayer()
+
+		gameService.nextPlayer()
+
+		verify(gameState, times(1)).currentPlayer = 0
+		verify(refreshable, times(1)).refreshAfterPlayerChange()
 	}
 
 	/**
@@ -100,24 +173,15 @@ class GameServiceTest {
 	 * Tests the score calculation for another valid value (25)
 	 */
 	@Test
-	fun `calculate score all hearts to score 25`() {
+	fun `calculate score of heart cards to score 17`() {
 		val cards = listOf(
 			Card(CardSuit.HEARTS, CardValue.SEVEN),
 			Card(CardSuit.HEARTS, CardValue.EIGHT),
-			Card(CardSuit.HEARTS, CardValue.QUEEN)
+			Card(CardSuit.CLUBS, CardValue.QUEEN)
 		)
 
 		val result = gameService.calculateScore(cards)
 
-		assertThat(result).isEqualTo(25.0)
-	}
-
-	/**
-	 * Private inner class to stub finish game, so we don't have to mock too much in some tests
-	 */
-	private class GameServiceStub(rootService: RootService): GameService(rootService) {
-		override fun finishGame() {
-			return
-		}
+		assertThat(result).isEqualTo(15.0)
 	}
 }

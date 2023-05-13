@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito.*
-import org.mockito.Spy
 import org.mockito.junit.jupiter.MockitoExtension
 import utils.TestUtils.getListOfCards
 import utils.TestUtils.getPlayerList
+import view.Refreshable
 
 /**
  * This class contains all unit tests for the [PlayerActionService]
@@ -30,6 +30,8 @@ class PlayerActionServiceTest {
 	private lateinit var gameState: GameState
 	@Mock
 	private lateinit var gameService: GameService
+	@Mock
+	private lateinit var refreshable: Refreshable
 
 	private lateinit var playerActionService: PlayerActionService
 
@@ -40,6 +42,7 @@ class PlayerActionServiceTest {
 	@BeforeEach
 	fun init() {
 		playerActionService = spy(PlayerActionService(rootService))
+		playerActionService.addRefreshable(refreshable)
 		`when`(rootService.gameState).thenReturn(gameState)
 	}
 
@@ -52,10 +55,12 @@ class PlayerActionServiceTest {
 
 		`when`(gameState.currentPlayer).thenReturn(0)
 		`when`(gameState.players).thenReturn(listOf(player))
+		`when`(rootService.gameService).thenReturn(gameService)
 		playerActionService.knock()
 
 		verify(player, times(1)).hasKnocked = true
 		verify(gameState, times(1)).passCounter = 0
+		verify(refreshable, times(1)).refreshAfterKnock()
 	}
 
 	/**
@@ -65,12 +70,14 @@ class PlayerActionServiceTest {
 	fun `pass if not all players have passed should not do any thing`() {
 		`when`(gameState.passCounter).thenReturn(1)
 		`when`(gameState.players).thenReturn(getPlayerList())
-		doNothing().`when`(playerActionService).nextPlayer()
+		`when`(rootService.gameService).thenReturn(gameService)
 
 		playerActionService.pass()
 
 		verify(gameState, times(2)).passCounter
 		verify(gameState, times(1)).passCounter = 2
+		verify(gameService, times(1)).nextPlayer()
+		verify(refreshable, times(1)).refreshAfterPass()
 		verifyNoMoreInteractions(gameState)
 	}
 
@@ -80,14 +87,12 @@ class PlayerActionServiceTest {
 	 */
 	@Test
 	fun `pass if all players have passed but there arent enough cards on the card stack`() {
-		`when`(rootService.gameService).thenReturn(gameService)
 		`when`(gameState.passCounter).thenReturn(3)
 		`when`(gameState.players).thenReturn(getPlayerList())
-		doNothing().`when`(gameService).finishGame()
 
 		playerActionService.pass()
 
-		verify(gameService, times(1)).finishGame()
+		verify(refreshable, times(1)).refreshAfterGameEnd()
 	}
 
 	/**
@@ -98,10 +103,12 @@ class PlayerActionServiceTest {
 		`when`(gameState.passCounter).thenReturn(3)
 		`when`(gameState.players).thenReturn(getPlayerList())
 		`when`(gameState.stackCards).thenReturn(getListOfCards(3))
+		`when`(rootService.gameService).thenReturn(gameService)
 
 		playerActionService.pass()
 
 		verify(gameState, times(1)).centralCards = anyList()
+		verify(refreshable, times(1)).refreshAfterPassWithCardsExchanged()
 	}
 
 	/**
@@ -116,11 +123,13 @@ class PlayerActionServiceTest {
 		`when`(gameState.currentPlayer).thenReturn(0)
 		`when`(gameState.players).thenReturn(listOf(player))
 		`when`(gameState.centralCards).thenReturn(centralCards)
+		`when`(rootService.gameService).thenReturn(gameService)
 
 		playerActionService.changeAllCards()
 
 		assertThat(player.handCards).isEqualTo(centralCards)
 		verify(gameState, times(1)).centralCards = handCards
+		verify(refreshable, times(1)).refreshAfterChangedCentralCards()
 	}
 
 	/**
@@ -137,11 +146,13 @@ class PlayerActionServiceTest {
 		`when`(gameState.currentPlayer).thenReturn(0)
 		`when`(gameState.players).thenReturn(listOf(player))
 		`when`(gameState.centralCards).thenReturn(newCentralCards)
+		`when`(rootService.gameService).thenReturn(gameService)
 
 		playerActionService.changeCard(0, 0)
 
 		assertThat(newHandCards).containsOnly(centralCards[0], handCards[1], handCards[2])
 		assertThat(newCentralCards).containsOnly(handCards[0], centralCards[1], centralCards[2])
+		verify(refreshable, times(1)).refreshAfterChangedCentralCards()
 	}
 
 	/**

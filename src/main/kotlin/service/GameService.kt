@@ -16,8 +16,6 @@ open class GameService (
 	private val rootService: RootService
 ): AbstractRefreshingService() {
 
-	private var gameRunning = true
-
 	/**
 	 * Prepares the [GameState] data class for the new game (resetting all values, giving each player cards, etc.)
 	 */
@@ -36,26 +34,22 @@ open class GameService (
 	}
 
 	/**
-	 * Calculates the score of each Player and shows the results of this game (as a scoreboard).
+	 * End the turn of the current player and updates the game state so that the next player is the now
+	 * the current player.
 	 */
-	open fun finishGame() {
-		gameRunning = false
+	fun nextPlayer() {
+		rootService.gameState.currentPlayer++
 
-		val scoreMap = mutableMapOf<Player, Double>()
-		rootService.gameState.players.forEach { scoreMap[it] = calculateScore(it.handCards) }
+		if (rootService.gameState.currentPlayer == rootService.gameState.players.size) {
+			rootService.gameState.currentPlayer = 0
+		}
 
-		onAllRefreshables { refreshAfterGameEnd() }
+		if (getCurrentPlayer().hasKnocked) {
+			onAllRefreshables { refreshAfterGameEnd() }
+		} else {
+			onAllRefreshables { refreshAfterPlayerChange() }
+		}
 	}
-
-	/**
-	 * Private helper function to create a 32 pieces card set.
-	 */
-	private fun getAllCardsShuffled() = MutableList(32) {
-		Card(
-			CardSuit.values()[it / 8],
-			CardValue.values()[(it % 8) + 5]
-		)
-	}.shuffled().toMutableList()
 
 	/**
 	 * Helper function to calculate the score of a set of hand cards on the fly.
@@ -70,4 +64,19 @@ open class GameService (
 			.maxOf { it }
 			.toDouble()
 	}
+
+	/**
+	 * Return the [entity.Player] object of the current player
+	 */
+	internal fun getCurrentPlayer() = rootService.gameState.players[rootService.gameState.currentPlayer]
+
+	/**
+	 * Private helper function to create a 32 pieces card set.
+	 */
+	private fun getAllCardsShuffled() = MutableList(32) {
+		Card(
+			CardSuit.values()[it / 8],
+			CardValue.values()[(it % 8) + 5]
+		)
+	}.shuffled().toMutableList()
 }
