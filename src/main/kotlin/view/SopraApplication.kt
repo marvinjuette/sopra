@@ -3,6 +3,7 @@ package view
 import service.RootService
 import tools.aqua.bgw.core.BoardGameApplication
 import models.Constants.WINDOW_TITLE
+import view.controller.EndViewController
 import view.controller.GameViewController
 import view.controller.PlayerChangedViewController
 import view.controller.StartViewController
@@ -23,6 +24,7 @@ class SopraApplication : BoardGameApplication(WINDOW_TITLE), Refreshable {
 	private val startViewController = StartViewController(startScene, rootService)
 	private val gameViewController = GameViewController(gameScene, rootService, this)
 	private val playerChangedViewController = PlayerChangedViewController(playerSwitchMenuScene, rootService)
+	private val endViewController = EndViewController(endScene, rootService)
 
    init {
 		rootService.addRefreshables(
@@ -30,7 +32,7 @@ class SopraApplication : BoardGameApplication(WINDOW_TITLE), Refreshable {
 			startViewController,
 			gameViewController,
 			playerChangedViewController,
-			endScene,
+			endViewController,
 		)
 		this.showMenuScene(startScene)
 	}
@@ -51,6 +53,11 @@ class SopraApplication : BoardGameApplication(WINDOW_TITLE), Refreshable {
 
 	override fun refreshAfterGameEnd() {
 		this.showMenuScene(endScene)
+	}
+
+	override fun refreshAfterNewGame() {
+		this.hideMenuScene()
+		this.showMenuScene(startScene)
 	}
 }
 

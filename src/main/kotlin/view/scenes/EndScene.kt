@@ -45,7 +45,7 @@ class EndScene: MenuScene(
 		font = TITLE_LABEL_FONT,
 	)
 
-	private val player1NameLabel = Label(
+	internal val player1NameLabel = Label(
 		posX = calculateCenterX(width, contentWidth),
 		posY = scoreLabel.posY + scoreLabel.height + DEFAULT_SPACING,
 		width = playerNameLabelWidth,
@@ -54,7 +54,7 @@ class EndScene: MenuScene(
 		font = PLAYER_NAME_FONT,
 	)
 
-	private val player1Score = Label(
+	internal val player1Score = Label(
 		posX = player1NameLabel.posX + 0.25 * DEFAULT_SPACING,
 		posY = player1NameLabel.posY + player1NameLabel.height,
 		width = scoreLabelWidth,
@@ -64,7 +64,7 @@ class EndScene: MenuScene(
 		visual = WHITE
 	)
 
-	private val player2NameLabel = Label(
+	internal val player2NameLabel = Label(
 		posX = player1NameLabel.posX + player1NameLabel.width + DEFAULT_SPACING,
 		posY = player1NameLabel.posY,
 		width = playerNameLabelWidth,
@@ -73,7 +73,7 @@ class EndScene: MenuScene(
 		font = PLAYER_NAME_FONT,
 	)
 
-	private val player2Score = Label(
+	internal val player2Score = Label(
 		posX = player2NameLabel.posX + 0.25 * DEFAULT_SPACING,
 		posY = player1Score.posY,
 		width = scoreLabelWidth,
@@ -83,7 +83,7 @@ class EndScene: MenuScene(
 		visual = WHITE
 	)
 
-	private val player3NameLabel = Label(
+	internal val player3NameLabel = Label(
 		posX = player1NameLabel.posX,
 		posY = player1Score.posY + player1Score.height + DEFAULT_SPACING / 2,
 		width = playerNameLabelWidth,
@@ -92,7 +92,7 @@ class EndScene: MenuScene(
 		font = PLAYER_NAME_FONT,
 	)
 
-	private val player3Score = Label(
+	internal val player3Score = Label(
 		posX = player3NameLabel.posX + 0.25 * DEFAULT_SPACING,
 		posY = player3NameLabel.posY + player3NameLabel.height,
 		width = scoreLabelWidth,
@@ -102,7 +102,7 @@ class EndScene: MenuScene(
 		visual = WHITE
 	)
 
-	private val player4NameLabel = Label(
+	internal val player4NameLabel = Label(
 		posX = player2NameLabel.posX,
 		posY = player3NameLabel.posY,
 		width = playerNameLabelWidth,
@@ -111,7 +111,7 @@ class EndScene: MenuScene(
 		font = PLAYER_NAME_FONT,
 	)
 
-	private val player4Score = Label(
+	internal val player4Score = Label(
 		posX = player4NameLabel.posX + 0.25 * DEFAULT_SPACING,
 		posY = player3Score.posY,
 		width = scoreLabelWidth,
@@ -121,7 +121,7 @@ class EndScene: MenuScene(
 		visual = WHITE
 	)
 
-	private val newGameButton = Button(
+	internal val newGameButton = Button(
 		posX = player3NameLabel.posX,
 		posY = player3Score.posY + player3Score.height + DEFAULT_SPACING,
 		width = playerNameLabelWidth,
@@ -131,7 +131,7 @@ class EndScene: MenuScene(
 		visual = CYAN
 	)
 
-	private val quitButton = Button(
+	internal val quitButton = Button(
 		posX = newGameButton.posX + newGameButton.width + DEFAULT_SPACING,
 		posY = newGameButton.posY,
 		width = playerNameLabelWidth,
@@ -141,7 +141,7 @@ class EndScene: MenuScene(
 		visual = RED
 	)
 
-	private val newGameWithSamePlayerButton = Button(
+	internal val newGameWithSamePlayerButton = Button(
 		posX = newGameButton.posX,
 		posY = newGameButton.posY + newGameButton.height + DEFAULT_SPACING / 2,
 		width = contentWidth,
@@ -161,6 +161,10 @@ class EndScene: MenuScene(
 
 	init {
 		backgroundButton.isDisabled = true
+		player3NameLabel.isVisible = false
+		player3Score.isVisible = false
+		player4NameLabel.isVisible = false
+		player4Score.isVisible = false
 
 		addComponents(
 			backgroundButton,

@@ -33,4 +33,8 @@ interface Refreshable {
 	fun refreshAfterPlayerRevealedCards() {
 		return
 	}
+
+	fun refreshAfterNewGame() {
+		return
+	}
 }
