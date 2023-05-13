@@ -17,8 +17,8 @@ import models.Constants.QUIT_BUTTON_TEXT
 import models.Constants.START_BUTTON_TEXT
 import models.Constants.TEXT_FIELD_HEIGHT
 import models.Constants.TEXT_FIELD_WIDTH
-import utils.ViewPositioning.calculateCenterX
-import utils.ViewPositioning.calculateCenterY
+import view.utils.ViewPositioning.calculateCenterX
+import view.utils.ViewPositioning.calculateCenterY
 import java.awt.Desktop
 import java.net.URL
 

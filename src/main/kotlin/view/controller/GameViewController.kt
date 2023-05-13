@@ -7,8 +7,8 @@ import tools.aqua.bgw.dialog.Dialog
 import tools.aqua.bgw.dialog.DialogType
 import models.Colors
 import models.Constants
-import utils.CardViewGenerator.generateCardImage
-import utils.CardViewGenerator.generateFlippedCardImage
+import view.utils.CardViewGenerator.generateCardImage
+import view.utils.CardViewGenerator.generateFlippedCardImage
 import view.animations.SelectCardAnimation.moveAnimation
 import view.Refreshable
 import view.SopraApplication

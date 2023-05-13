@@ -1,4 +1,4 @@
-package utils
+package view.utils
 
 import entity.Card
 import models.Constants

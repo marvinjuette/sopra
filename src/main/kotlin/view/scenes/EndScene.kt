@@ -20,8 +20,8 @@ import models.Constants.SCORE_TEXT
 import models.Constants.TEXT_FIELD_HEIGHT
 import models.Constants.TEXT_FIELD_WIDTH
 import models.Constants.TITLE_LABEL_FONT
-import utils.ViewPositioning.calculateCenterX
-import utils.ViewPositioning.calculateCenterY
+import view.utils.ViewPositioning.calculateCenterX
+import view.utils.ViewPositioning.calculateCenterY
 import view.Refreshable
 
 class EndScene: MenuScene(
