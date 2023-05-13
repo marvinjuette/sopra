@@ -9,6 +9,7 @@ import java.util.*
  * The values are ordered according to their most common ordering:
  * 2 < 3 < ... < 10 < Jack < Queen < King < Ace
  *
+ * @param score The score the card value scores
  */
 enum class CardValue(val score: Int) {
 	TWO(2),
@@ -46,16 +47,4 @@ enum class CardValue(val score: Int) {
 			KING -> "K"
 			ACE -> "A"
 		}
-
-
-	companion object {
-
-		/**
-		 * A set of values for a reduced set of 4x8=32 cards (starting with the 7)
-		 */
-		fun shortDeck(): Set<CardValue> {
-			return EnumSet.of(ACE, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING)
-		}
-
-	}
 }

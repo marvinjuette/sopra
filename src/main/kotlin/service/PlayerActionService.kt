@@ -97,6 +97,10 @@ class PlayerActionService(
         rootService.gameState.passCounter = 0
     }
 
+    /**
+     * End the turn of the current player and updates the game state so that the next player is the now
+     * the current player.
+     */
     fun nextPlayer() {
         rootService.gameState.currentPlayer++
 
