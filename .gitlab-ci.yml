@@ -47,6 +47,7 @@ test:
     - echo "DOC_COVERAGE_MAIN=$(expr "(" $CLASSES_MAIN "+" $FUNCTIONS_MAIN "-" $UNCOMMENTED_CLASSES_MAIN "-" $UNCOMMENTED_FUNCTIONS_MAIN ")" "*" 100 "/" "(" $CLASSES_MAIN "+" $FUNCTIONS_MAIN")" )" >> build.env || true
     - echo "DOC_COVERAGE_TEST=$(expr "(" $CLASSES_TEST "+" $FUNCTIONS_TEST "-" $UNCOMMENTED_CLASSES_TEST "-" $UNCOMMENTED_FUNCTIONS_TEST ")" "*" 100 "/" "(" $CLASSES_TEST "+" $FUNCTIONS_TEST")" )" >> build.env || true
     - cat build.env
+    - awk -F"," '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, " instructions covered"; print 100*covered/instructions, "% covered" }' public/coverage/jacoco.csv
   artifacts:
     reports:
       dotenv: build.env
