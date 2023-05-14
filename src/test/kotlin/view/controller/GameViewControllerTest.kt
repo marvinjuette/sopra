@@ -141,6 +141,9 @@ class GameViewControllerTest {
 		}
 	}
 
+	/**
+	 * Test if refresh after pass with cards exchanged the label and the central cards are updated.
+	 */
 	@Test
 	fun `test if refresh after pass with cards exchanged the label and the central cards are updated`() {
 		val gameViewControllerSpy = spy(gameViewController)
