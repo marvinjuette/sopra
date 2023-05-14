@@ -35,7 +35,7 @@ class StartViewController(
 	/**
 	 * Shows the error with the error message that at least two player names need to be provided.
 	 */
-	private fun showErrorLabel() {
+	internal fun showErrorLabel() {
 		startScene.errorLabel.isVisible = true
 	}
 
@@ -44,7 +44,7 @@ class StartViewController(
 	 *
 	 * @return playerNames A [List<String>] that contains all 2-4 entered player names.
 	 */
-	private fun getPlayerNamesAsList(): List<String> {
+	internal fun getPlayerNamesAsList(): List<String> {
 		val playerNames = mutableListOf<String>()
 		playerNames.add(startScene.playerName1.text.trim())
 		playerNames.add(startScene.playerName2.text.trim())

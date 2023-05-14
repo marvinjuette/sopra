@@ -47,17 +47,16 @@ class GameViewController(
 	 * Updates all ui elements to display their initial values
 	 */
 	override fun refreshAfterGameStart() {
-		gameScene.passCounterLabel.text = "Pass: ${rootService.gameState.passCounter} / ${rootService.gameState.players.size}"
-
+		refreshAfterPass()
 		refreshAfterChangedCentralCards()
 
 		gameScene.centralStackCardStack.removeAll { true }
 		rootService.gameState.stackCards.forEach { gameScene.centralStackCardStack.add(generateCardImage(it)) }
+		gameScene.centralStackLabel.text = "Central Stack (${rootService.gameState.stackCards.size})"
 
 		refreshAfterPlayerChange()
 
 		gameScene.knockButton.visual = RED
-		gameScene.centralStackLabel.text = "Central Stack (${rootService.gameState.stackCards.size})"
 	}
 
 	/**
@@ -113,7 +112,7 @@ class GameViewController(
 	 *
 	 * @param cardView References the [CardView] which is to be focused
 	 */
-	private fun focusCentralCard(cardView: CardView) {
+	internal fun focusCentralCard(cardView: CardView) {
 		if (!cardView.isFocusable) {
 			return
 		}
@@ -134,7 +133,7 @@ class GameViewController(
 	 *
 	 * @param cardView References the [CardView] which is to be focused
 	 */
-	private fun focusHandCard(cardView: CardView) {
+	internal fun focusHandCard(cardView: CardView) {
 		if (!cardView.isFocusable) {
 			return
 		}
@@ -178,7 +177,7 @@ class GameViewController(
 	 */
 	// SwallowedException because we catch the exception and show an error dialog with a custom error message
 	@Suppress("SwallowedException")
-	private fun changeCard() {
+	internal fun changeCard() {
 		val handIndex: Int
 		val centralIndex: Int
 

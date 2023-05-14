@@ -49,7 +49,7 @@ class EndViewController(
 		endScene.player2NameLabel.text = player2.name
 		endScene.player2Score.text = rootService.gameService.calculateScore(player2.handCards).toString()
 
-		if (playerAmount == 3) {
+		if (playerAmount >= 3) {
 			val player3 = rootService.gameState.players[2]
 			endScene.player3NameLabel.isVisible = true
 			endScene.player3NameLabel.text = player3.name

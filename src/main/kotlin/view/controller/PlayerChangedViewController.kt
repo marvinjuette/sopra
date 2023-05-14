@@ -51,7 +51,7 @@ class PlayerChangedViewController(
 	/**
 	 * This method generates the info text for the player with instructions on how to proceed
 	 */
-	private fun generateRevealHintText(): String {
+	internal fun generateRevealHintText(): String {
 		val playerName = rootService.gameState.players[rootService.gameState.currentPlayer].name
 		return "${playerName}, $PRESS_KEY_TO_SHOW_CARDS_TEXT"
 	}
