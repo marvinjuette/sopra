@@ -175,8 +175,6 @@ class GameViewController(
 	/**
 	 * This method checks whether one hand and one central card is selected if both are selected swaps them
 	 */
-	// SwallowedException because we catch the exception and show an error dialog with a custom error message
-	@Suppress("SwallowedException")
 	internal fun changeCard() {
 		val handIndex: Int
 		val centralIndex: Int
@@ -184,7 +182,7 @@ class GameViewController(
 		try {
 			val selectedHandCard = gameScene.handCardsLinearLayout.first { !it.isFocusable }
 			handIndex = gameScene.handCardsLinearLayout.indexOf(selectedHandCard)
-		} catch (e: NoSuchElementException) {
+		} catch (_: NoSuchElementException) {
 			sopraApplication.showDialog(
 				Dialog(
 					DialogType.ERROR,
@@ -199,7 +197,7 @@ class GameViewController(
 		try {
 			val selectedCentralCard = gameScene.centralCardsLinearLayout.first { !it.isFocusable }
 			centralIndex = gameScene.centralCardsLinearLayout.indexOf(selectedCentralCard)
-		} catch (e: NoSuchElementException) {
+		} catch (_: NoSuchElementException) {
 			sopraApplication.showDialog(
 				Dialog(
 					DialogType.ERROR,
