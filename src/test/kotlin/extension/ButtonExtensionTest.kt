@@ -2,7 +2,10 @@ package extension
 
 import extensions.onButtonClicked
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.spy
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
 import tools.aqua.bgw.components.uicomponents.Button
 
 /**

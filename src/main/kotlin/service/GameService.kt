@@ -61,7 +61,7 @@ open class GameService (
 
 		return CardSuit.values()
 			.map { suit -> handCards.filter { it.suit == suit }.sumOf { it.value.score } }
-			.maxOf { it }
+			.sortedDescending()[0]
 			.toDouble()
 	}
 

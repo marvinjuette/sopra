@@ -3,13 +3,12 @@ package service
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoExtension
 import kotlin.test.assertNotNull
 import entity.GameState
 import org.assertj.core.api.Assertions.assertThat
 import org.mockito.Mock
-import org.mockito.kotlin.anyOrNull
+import org.mockito.kotlin.*
 import view.Refreshable
 
 /**

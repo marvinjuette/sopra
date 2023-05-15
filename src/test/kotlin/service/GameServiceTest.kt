@@ -5,9 +5,11 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
 import org.mockito.junit.jupiter.MockitoExtension
+import org.mockito.kotlin.*
 import utils.TestUtils.getListOfCards
 import view.Refreshable
 
@@ -79,8 +81,8 @@ class GameServiceTest {
 		gameService = spy(GameService(rootService))
 		gameService.addRefreshable(refreshable)
 
-		val player1 = mock(Player::class.java)
-		val player2 = mock(Player::class.java)
+		val player1: Player = mock()
+		val player2: Player = mock()
 		`when`(rootService.gameState).thenReturn(gameState)
 		`when`(gameState.currentPlayer).thenReturn(0)
 		`when`(gameState.players).thenReturn(listOf(player1, player2))
@@ -101,8 +103,8 @@ class GameServiceTest {
 		gameService = spy(GameService(rootService))
 		gameService.addRefreshable(refreshable)
 
-		val player1 = mock(Player::class.java)
-		val player2 = mock(Player::class.java)
+		val player1: Player = mock()
+		val player2: Player = mock()
 		`when`(rootService.gameState).thenReturn(gameState)
 		`when`(gameState.currentPlayer).thenReturn(0)
 		`when`(gameState.players).thenReturn(listOf(player1, player2))
@@ -123,8 +125,8 @@ class GameServiceTest {
 		gameService = spy(GameService(rootService))
 		gameService.addRefreshable(refreshable)
 
-		val player1 = mock(Player::class.java)
-		val player2 = mock(Player::class.java)
+		val player1: Player = mock()
+		val player2: Player = mock()
 		`when`(rootService.gameState).thenReturn(gameState)
 		`when`(gameState.currentPlayer).thenReturn(2)
 		`when`(gameState.players).thenReturn(listOf(player1, player2))
@@ -154,6 +156,22 @@ class GameServiceTest {
 	}
 
 	/**
+	 * Tests the score calculation method for a valid score (namely 20)
+	 */
+	@Test
+	fun `calculate score all hearts to score 20`() {
+		val cards = listOf(
+			Card(CardSuit.HEARTS, CardValue.KING),
+			Card(CardSuit.CLUBS, CardValue.KING),
+			Card(CardSuit.HEARTS, CardValue.QUEEN)
+		)
+
+		val result = gameService.calculateScore(cards)
+
+		assertThat(result).isEqualTo(20.0)
+	}
+
+	/**
 	 * Tests the score calculation method for a valid score (namely 31)
 	 */
 	@Test
@@ -170,10 +188,10 @@ class GameServiceTest {
 	}
 
 	/**
-	 * Tests the score calculation for another valid value (25)
+	 * Tests the score calculation for another valid value (15)
 	 */
 	@Test
-	fun `calculate score of heart cards to score 17`() {
+	fun `calculate score of heart cards to score 15`() {
 		val cards = listOf(
 			Card(CardSuit.HEARTS, CardValue.SEVEN),
 			Card(CardSuit.HEARTS, CardValue.EIGHT),
