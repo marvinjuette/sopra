@@ -1,5 +1,6 @@
 package view.scenes
 
+import tools.aqua.bgw.components.uicomponents.Button
 import tools.aqua.bgw.components.uicomponents.Label
 import tools.aqua.bgw.core.MenuScene
 import tools.aqua.bgw.util.Font
@@ -8,6 +9,7 @@ import view.models.Colors.WHITE
 import view.models.Colors.WINDOW_BACKGROUND_COLOR
 import view.models.Constants.DEFAULT_WINDOW_HEIGHT
 import view.models.Constants.DEFAULT_WINDOW_WIDTH
+import view.utils.ViewPositioning.calculateCenterX
 
 /**
  * Player change scene which is used to blur the game scene so that other players cannot see the current players
@@ -21,6 +23,14 @@ class PlayerChangedScene: MenuScene(
 	background = WINDOW_BACKGROUND_COLOR
 ), Refreshable {
 
+	private val  backgroundButton = Button(
+		posX = calculateCenterX(width, width / 3),
+		posY = 0,
+		width = width / 3,
+		height = height,
+		visual = WHITE
+	)
+
 	internal val label = Label(
 		posX = 0,
 		posY = 0,
@@ -33,6 +43,9 @@ class PlayerChangedScene: MenuScene(
 	 * Initialize the player change scene
 	 */
 	init {
-		addComponents(label)
+		backgroundButton.opacity = .1
+		backgroundButton.isDisabled = true
+
+		addComponents(backgroundButton, label)
 	}
 }

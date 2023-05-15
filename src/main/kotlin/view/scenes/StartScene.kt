@@ -120,7 +120,6 @@ class StartScene: MenuScene(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT) {
      */
     init {
         background = WINDOW_BACKGROUND_COLOR
-        backgroundButton.isDisabled = true
 
         errorLabel.isVisible = false
 
