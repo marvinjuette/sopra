@@ -137,6 +137,29 @@ class EndViewControllerTest {
 	}
 
 	/**
+	 * Test if name and score of player 3 and 4 are hidden after new game starts.
+ 	 */
+	@Test
+	fun `test if name and score of player 3 and 4 are hidden after new game starts`() {
+		val player3NameLabel: Label = mock()
+		val player3ScoreLabel: Label = mock()
+		val player4NameLabel: Label = mock()
+		val player4ScoreLabel: Label = mock()
+
+		`when`(endScene.player3NameLabel).thenReturn(player3NameLabel)
+		`when`(endScene.player3Score).thenReturn(player3ScoreLabel)
+		`when`(endScene.player4NameLabel).thenReturn(player4NameLabel)
+		`when`(endScene.player4Score).thenReturn(player4ScoreLabel)
+
+		endViewController.refreshAfterGameStart()
+
+		verify(player3NameLabel, times(1)).isVisible = false
+		verify(player3ScoreLabel, times(1)).isVisible = false
+		verify(player4NameLabel, times(1)).isVisible = false
+		verify(player4ScoreLabel, times(1)).isVisible = false
+	}
+
+	/**
 	 * Test refresh after game end with four players
 	 */
 	@Test

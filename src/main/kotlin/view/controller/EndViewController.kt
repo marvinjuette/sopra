@@ -28,6 +28,18 @@ class EndViewController(
 	}
 
 	/**
+	 * This methods hides score and name of player 3 and 4 after a game starts to hide them, if the first game is
+	 * played by 4 players and the second game is player by 2 player. Then there is no need for the two players to
+	 * display the score of player 3 and 4, because the labels are not updated.
+	 */
+	override fun refreshAfterGameStart() {
+		endScene.player3NameLabel.isVisible = false
+		endScene.player3Score.isVisible = false
+		endScene.player4NameLabel.isVisible = false
+		endScene.player4Score.isVisible = false
+	}
+
+	/**
 	 * This method immediately starts a new game with the same player names
 	 */
 	fun startNewGameWithSamePlayers() {
